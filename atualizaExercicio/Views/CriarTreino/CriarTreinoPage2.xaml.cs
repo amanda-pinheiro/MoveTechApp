@@ -59,6 +59,7 @@ namespace atualizaExercicio.Views.CriarTreino
                 // ✅ CAPTURAR PARÂMETROS DOS CAMPOS
                 var seriesEntry = this.FindByName<Entry>("SeriesEntry");
                 var repsEntry = this.FindByName<Entry>("RepsEntry");
+                var cargaEntry = this.FindByName<Entry>("CargaEntry");
                 var intervaloPicker = this.FindByName<Picker>("IntervaloPicker");
 
                 if (seriesEntry == null || repsEntry == null || intervaloPicker == null)
@@ -74,6 +75,7 @@ namespace atualizaExercicio.Views.CriarTreino
                     NomeExercicio = _exercicio.NomeExer,
                     Serie = int.TryParse(seriesEntry.Text, out int series) ? series : 3,
                     Reps = int.TryParse(repsEntry.Text, out int reps) ? reps : 12,
+                    Carga = float.TryParse(cargaEntry.Text, out float carga) ? carga : 0,
                     Intervalo = ConverterIntervalo(intervaloPicker.SelectedItem?.ToString())
                 };
 

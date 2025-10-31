@@ -61,7 +61,8 @@ namespace atualizaExercicio.Services
             return exercicios;
         }
 
-        public async Task<ValidationResult> CriarTreinoAsync(CriarTreinoData treinoData)
+        // ✅ CORRIGIDO: Agora retorna int (ID do treino criado)
+        public async Task<int> CriarTreinoAsync(CriarTreinoData treinoData)
         {
             try
             {
@@ -82,20 +83,23 @@ namespace atualizaExercicio.Services
                         cmd.Parameters.AddWithValue("@DataFim", treinoData.DataFim ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@UsuarioId", treinoData.UsuarioId);
 
-                        var treinoId = await cmd.ExecuteScalarAsync();
+                        var result = await cmd.ExecuteScalarAsync();
+                        int treinoId = result != null ? Convert.ToInt32(result) : 0;
 
-                        return ValidationResult.Success($"Treino criado com ID: {treinoId}");
+                        System.Diagnostics.Debug.WriteLine($"✅ Treino criado com ID: {treinoId}");
+                        return treinoId;
                     }
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"❌ Erro ao criar treino: {ex.Message}");
-                return ValidationResult.Error($"Erro ao criar treino: {ex.Message}");
+                return 0;
             }
         }
 
-        public async Task<ValidationResult> SalvarExercicioTreinoAsync(ExercicioParametros parametros)
+        // ✅ CORRIGIDO: Agora retorna bool (sucesso/falha)
+        public async Task<bool> SalvarExercicioTreinoAsync(ExercicioParametros parametros)
         {
             try
             {
@@ -118,19 +122,16 @@ namespace atualizaExercicio.Services
 
                         await cmd.ExecuteNonQueryAsync();
 
-                        return ValidationResult.Success($"Exercício '{parametros.NomeExercicio}' salvo no treino");
+                        System.Diagnostics.Debug.WriteLine($"✅ Exercício '{parametros.NomeExercicio}' salvo no treino {parametros.TreinoId}");
+                        return true;
                     }
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"❌ Erro ao salvar exercício no treino: {ex.Message}");
-                return ValidationResult.Error($"Erro ao salvar exercício: {ex.Message}");
+                return false;
             }
         }
-
-
-
-
     }
 }

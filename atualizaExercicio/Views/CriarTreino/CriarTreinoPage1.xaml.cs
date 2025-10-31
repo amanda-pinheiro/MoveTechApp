@@ -24,6 +24,9 @@ namespace atualizaExercicio.Views.CriarTreino
             _exerciciosSelecionados = new List<Exercicio>();
 
             CarregarExercicios();
+
+            // ✅ INICIALIZAR ESTADO DO BOTÃO
+            AtualizarBotaoSalvar();
         }
 
         private async void CarregarExercicios()
@@ -56,6 +59,9 @@ namespace atualizaExercicio.Views.CriarTreino
             }
 
             CriarCardsExercicios(exerciciosParaMostrar);
+
+            // ✅ ATUALIZAR BOTÃO APÓS MUDANÇAS NA LISTA
+            AtualizarBotaoSalvar();
         }
 
         private void CriarCardsExercicios(List<Exercicio> exercicios)
@@ -204,6 +210,9 @@ namespace atualizaExercicio.Views.CriarTreino
 
                 AtualizarListaExercicios();
                 System.Diagnostics.Debug.WriteLine($"{_exerciciosSelecionados.Count} exercícios selecionados");
+
+                // ✅ ATUALIZAR BOTÃO APÓS SELECIONAR/DESSELECIONAR
+                AtualizarBotaoSalvar();
             }
             catch (Exception ex)
             {
@@ -252,10 +261,176 @@ namespace atualizaExercicio.Views.CriarTreino
 
                 // ✅ ATUALIZAR UI PARA MOSTRAR PARÂMETROS
                 AtualizarListaExercicios();
+
+                // ✅ ATUALIZAR BOTÃO APÓS SALVAR PARÂMETROS
+                AtualizarBotaoSalvar();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"❌ Erro ao processar parâmetros: {ex.Message}");
+            }
+        }
+
+        // ✅ MÉTODO: Verificar se pode salvar treino
+        private bool PodeSalvarTreino()
+        {
+            // Se não tem exercícios selecionados, não pode salvar
+            if (_exerciciosSelecionados.Count == 0)
+                return false;
+
+            // Verificar se TODOS os exercícios selecionados têm parâmetros
+            foreach (var exercicio in _exerciciosSelecionados)
+            {
+                var parametros = _parametrosTemporarios.FirstOrDefault(p => p.ExercicioId == exercicio.IdExercicio);
+                if (parametros == null)
+                    return false; // ❌ Este exercício não tem parâmetros
+            }
+
+            return true; // ✅ Todos têm parâmetros
+        }
+
+        // ✅ MÉTODO: Atualizar estado do botão
+        private void AtualizarBotaoSalvar()
+        {
+            if (SalvarTreinoButton != null)
+            {
+                bool podeSalvar = PodeSalvarTreino();
+                SalvarTreinoButton.IsEnabled = podeSalvar;
+                SalvarTreinoButton.BackgroundColor = podeSalvar ? Color.FromArgb("#7C3AED") : Color.FromArgb("#555555");
+
+                // ✅ DEBUG
+                System.Diagnostics.Debug.WriteLine($"🎯 Botão salvar: {(podeSalvar ? "HABILITADO" : "DESABILITADO")}");
+            }
+        }
+
+        // ✅ MÉTODO COMPLETO: Salvar treino no BD (SIMPLIFICADO)
+        private async void SalvarButton2_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // ✅ VALIDAR NOVAMENTE (segurança extra)
+                if (!PodeSalvarTreino())
+                {
+                    await DisplayAlert("Aviso", "Configure os parâmetros de todos os exercícios selecionados antes de salvar o treino.", "OK");
+                    return;
+                }
+
+                // ✅ SOLICITAR TÍTULO DO TREINO
+                string tituloTreino = await DisplayPromptAsync(
+                    "Salvar Treino",
+                    "Digite um nome para o treino:",
+                    "Salvar",
+                    "Cancelar",
+                    "Meu Treino",
+                    maxLength: 45);
+
+                if (string.IsNullOrWhiteSpace(tituloTreino))
+                {
+                    await DisplayAlert("Aviso", "É necessário informar um nome para o treino.", "OK");
+                    return;
+                }
+
+                // ✅ OBTER ID DO USUÁRIO LOGADO
+                var usuarioIdStr = await SecureStorage.GetAsync("usuario_id");
+                if (string.IsNullOrEmpty(usuarioIdStr) || !int.TryParse(usuarioIdStr, out int usuarioId))
+                {
+                    await DisplayAlert("Erro", "Usuário não identificado. Faça login novamente.", "OK");
+                    return;
+                }
+
+                // ✅ CRIAR DADOS DO TREINO
+                var treinoData = new CriarTreinoData
+                {
+                    TituloTreino = tituloTreino.Trim(),
+                    Objetivo = "Treino personalizado",
+                    DataInicio = DateTime.Now.Date,
+                    DataFim = null,
+                    UsuarioId = usuarioId
+                };
+
+                // ✅ SALVAR TREINO NO BD (SEM VALIDAÇÃO COMPLEXA)
+                await _treinoService.CriarTreinoAsync(treinoData);
+
+                // ✅ OBTER ID DO TREINO CRIADO
+                int treinoId = await ObterTreinoIdCriado(treinoData.TituloTreino, usuarioId);
+
+                if (treinoId == 0)
+                {
+                    await DisplayAlert("Erro", "Não foi possível identificar o treino criado.", "OK");
+                    return;
+                }
+
+                // ✅ SALVAR EXERCÍCIOS DO TREINO (SEM VALIDAÇÃO COMPLEXA)
+                int exerciciosSalvos = 0;
+                foreach (var parametro in _parametrosTemporarios)
+                {
+                    // Só salvar os parâmetros dos exercícios selecionados
+                    if (_exerciciosSelecionados.Any(ex => ex.IdExercicio == parametro.ExercicioId))
+                    {
+                        parametro.TreinoId = treinoId;
+
+                        // ✅ CHAMA DIRETO SEM VERIFICAR RESULTADO
+                        await _treinoService.SalvarExercicioTreinoAsync(parametro);
+                        exerciciosSalvos++;
+
+                        System.Diagnostics.Debug.WriteLine($"✅ Exercício {parametro.NomeExercicio} salvo");
+                    }
+                }
+
+                // ✅ FEEDBACK FINAL
+                if (exerciciosSalvos > 0)
+                {
+                    await DisplayAlert("Sucesso", $"Treino '{tituloTreino}' salvo com {exerciciosSalvos} exercícios!", "OK");
+
+                    // ✅ LIMPAR DADOS E VOLTAR
+                    _exerciciosSelecionados.Clear();
+                    _parametrosTemporarios.Clear();
+                    await Navigation.PopAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Erro", "Treino criado, mas nenhum exercício foi salvo.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro", $"Erro ao salvar treino: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"❌ Erro completo: {ex}");
+            }
+        }
+
+        // ✅ MÉTODO AUXILIAR: Obter ID do treino recém-criado
+        private async Task<int> ObterTreinoIdCriado(string tituloTreino, int usuarioId)
+        {
+            try
+            {
+                // Buscar o treino mais recente com este título e usuário
+                using (var conn = new MySql.Data.MySqlClient.MySqlConnection(Services.Database.DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string query = @"
+                        SELECT idTreino 
+                        FROM Treino 
+                        WHERE tituloTreino = @TituloTreino 
+                        AND usuario_Treino = @UsuarioId 
+                        ORDER BY idTreino DESC 
+                        LIMIT 1";
+
+                    using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TituloTreino", tituloTreino);
+                        cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                        var result = await cmd.ExecuteScalarAsync();
+                        return result != null ? Convert.ToInt32(result) : 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao obter ID do treino: {ex.Message}");
+                return 0;
             }
         }
 

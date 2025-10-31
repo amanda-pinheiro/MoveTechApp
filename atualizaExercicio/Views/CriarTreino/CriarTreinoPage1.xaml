@@ -75,8 +75,24 @@
 
                 </VerticalStackLayout>
             </ScrollView>
+            
 
         </Grid>
+        <VerticalStackLayout VerticalOptions="End" Background="#202020"  Padding="15">
+            <!-- Botão Salvar -->
+            <Button x:Name="SalvarTreinoButton"
+                    Text="Salvar Treino"
+                    BackgroundColor="#7C3AED"
+                    TextColor="White"
+                    FontSize="16"
+                    HeightRequest="40"
+                    WidthRequest="327"
+                    CornerRadius="25"
+                    Margin="0,0,0,20"
+                    Clicked="SalvarButton2_Clicked"
+                    FontFamily="QuicksandRegular"
+                    VerticalOptions="Center"/>
+        </VerticalStackLayout>
     </Grid>
 
 </ContentPage>
