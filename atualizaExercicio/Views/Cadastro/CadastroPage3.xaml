@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.Cadastro.CadastroPage3"
+             Title="CadastroPage3">
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill"/>
+
+        <BoxView BackgroundColor="#80000000"
+                 VerticalOptions="FillAndExpand"
+                 HorizontalOptions="FillAndExpand"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Start"
+                             Spacing="0">
+
+            <Grid BackgroundColor="#010101" 
+                  Padding="15,10" 
+                  HeightRequest="70" 
+                  VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Conteúdo Central -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center"
+                             Spacing="10"
+                             Padding="0"
+                             >
+
+            <!-- Título Senha -->
+            <VerticalStackLayout BackgroundColor="#804b0082"
+                               HorizontalOptions="FillAndExpand"
+                               Margin="0,0,0,10">
+                <Label Text="Senha"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandRegular"
+                       HorizontalOptions="Center"
+                       Padding="0,10"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center"
+                             Spacing="10"
+                             Padding="0"
+                             BackgroundColor="#010101">
+
+                <!-- Senha -->
+                <Grid BackgroundColor="#010101" 
+                          Padding="10" 
+                          HeightRequest="85"
+                          VerticalOptions="Start"
+                          HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Senha: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
+
+                    <!-- Container para Entry + Ícone -->
+                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                        <Entry x:Name="SenhaEntry"
+                               Placeholder="Senha"
+                               FontFamily="QuicksandLight"
+                               PlaceholderColor="Gray"
+                               TextColor="Black"
+                               BackgroundColor="White"
+                               HeightRequest="50"
+                               HorizontalOptions="FillAndExpand"
+                               IsPassword="True"
+                               MaxLength="50"/>
+
+                        <ImageButton x:Name="ToggleSenhaButton"
+                                     Source="eye_slash_icon.png"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="25"
+                                     HeightRequest="25"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center"
+                                     Margin="0,0,10,0"
+                                     Clicked="ToggleSenhaButton_Clicked"/>
+                    </Grid>
+                </Grid>
+
+                <!-- Confirme sua senha -->
+                <Grid BackgroundColor="#010101" 
+                          Padding="10" 
+                          HeightRequest="85"
+                          VerticalOptions="Start"
+                          HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Text="Confirme sua senha: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
+
+                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                        <Entry x:Name="ConfSenhaEntry"
+                           Placeholder="Senha"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="50"
+                           HorizontalOptions="FillAndExpand"
+                           IsPassword="True"
+                           MaxLength="50"/>
+
+                        <ImageButton x:Name="ToggleConfSenhaButton"
+                             Source="eye_slash_icon.png"
+                             BackgroundColor="Transparent"
+                             WidthRequest="25"
+                             HeightRequest="25"
+                             HorizontalOptions="End"
+                             VerticalOptions="Center"
+                             Margin="0,0,10,0"
+                             Clicked="ToggleConfSenhaButton_Clicked"/>
+                    </Grid>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout   VerticalOptions="End">
+                <Label HorizontalOptions="Start" 
+                       HorizontalTextAlignment="Start"
+                       WidthRequest="300"
+                       Margin="10"
+                       Text="A senha deve ter:"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+
+                <Label HorizontalOptions="Start" 
+                       HorizontalTextAlignment="Start"
+                       WidthRequest="300"
+                       Margin="20,10,10,10"
+                       Text="- No mínimo 8 caracteres"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+
+                <Label HorizontalOptions="Start" 
+                       HorizontalTextAlignment="Start"
+                       WidthRequest="300"
+                       Margin="20,10,10,10"
+                       Text="- Letras minúsculas e maiúsculas"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+
+                <Label HorizontalOptions="Start" 
+                       HorizontalTextAlignment="Start"
+                       WidthRequest="300"
+                       Margin="20,10,10,10"
+                       Text="- Números"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+
+                <Label HorizontalOptions="Start" 
+                       HorizontalTextAlignment="Start"
+                       WidthRequest="300"
+                       Margin="20,10,10,10"
+                       Text="- Caracteres Especiais (*!@#$...)"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+            </VerticalStackLayout>
+
+
+
+        </VerticalStackLayout>
+
+
+        <!-- Botões na parte inferior -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                           VerticalOptions="End"
+                           Spacing="10"
+                           Padding="0,0,0,20">
+            <HorizontalStackLayout Spacing="15"
+                                 HorizontalOptions="Center">
+                <Button x:Name="VoltarButton3"
+                        Text="Voltar"
+                        BackgroundColor="#FFFFFF"
+                        Opacity="0.7"
+                        TextColor="#4D2D8C"
+                        CornerRadius="20"
+                        Padding="20,10"
+                        WidthRequest="120"
+                        FontFamily="QuicksandRegular"
+                        Clicked="VoltarButton3_Clicked"
+                        />
+
+                <Button x:Name="ContinuarButton3"
+                        Text="Continuar"
+                        BackgroundColor="#4b0082"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,10"
+                        WidthRequest="120"
+                        FontFamily="QuicksandRegular"
+                        Clicked="ContinuarButton3_Clicked"
+                        />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

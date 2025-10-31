@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.MainPage">
+
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill"/>
+
+        <BoxView BackgroundColor="#80000000" 
+             VerticalOptions="FillAndExpand"
+             HorizontalOptions="FillAndExpand"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+              VerticalOptions="Start"
+              Spacing="0">
+            <Grid BackgroundColor="#010101" 
+                  Padding="15,10" 
+                  HeightRequest="70" 
+                  VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+
+                <!-- Menu -->
+                <HorizontalStackLayout Spacing="8" 
+                        Grid.Column="2" 
+                        VerticalOptions="Center"
+                        Margin="0,0,5,0">
+
+                    <Button Text="Home"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Sobre"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Contato"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="70"
+                            HeightRequest="32"/>
+
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Conteúdo central -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="10">
+            <Label Text="Conecte-se com seu foco."
+                   TextColor="Lavender"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   FontFamily="QuicksandMedium"/>
+
+            <Label Text="Alcance seus objetivos."
+                   TextColor="Lavender"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   FontFamily="QuicksandMedium"/>
+        </VerticalStackLayout>
+
+        <!-- Botões de Login e Cadastro -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="End"
+                             Spacing="10"
+                             Padding="0,0,0,20">
+            <HorizontalStackLayout Spacing="15"
+                                   HorizontalOptions="Center">
+
+                <Button x:Name="LoginButton"
+                        Text="Login"
+                        BackgroundColor="#2d2727"
+                        TextColor="Lavender"
+                        CornerRadius="20"
+                        Padding="20,10"
+                        WidthRequest="120"
+                        FontFamily="QuicksandRegular"
+                        Clicked="LoginButton_Clicked"/>
+
+                <Button x:Name="CadastroButton"
+                        Text="Cadastre-se"
+                        BackgroundColor="#4b0082"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="20,10"
+                        WidthRequest="120"
+                        FontFamily="QuicksandRegular"
+                        Clicked="CadastroButton_Clicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

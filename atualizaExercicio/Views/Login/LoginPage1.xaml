@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.Login.LoginPage1"
+             Title="LoginPage1">
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+           VerticalOptions="FillAndExpand"
+           HorizontalOptions="FillAndExpand"/>
+
+        <BoxView BackgroundColor="#80000000" 
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Start"
+                     Spacing="0">
+            <Grid BackgroundColor="#010101" 
+                  Padding="15,10" 
+                  HeightRequest="70" 
+                  VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+
+                <!-- Menu -->
+                <HorizontalStackLayout Spacing="8" 
+                               Grid.Column="2" 
+                               VerticalOptions="Center"
+                               Margin="0,0,5,0">
+                    <Button Text="Home"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                    MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Sobre"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Contato"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="70"
+                            HeightRequest="32"/>
+
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Conteúdo central -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Spacing="10">
+            <Label Text="Entre na sua conta"
+                   TextColor="Lavender"
+                   FontSize="20"
+                   FontFamily="QuicksandSemibold"             
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Faça seu login"
+               TextColor="Lavender"
+               FontSize="15"
+               FontFamily="QuicksandLight"
+               HorizontalOptions="Center"
+               />
+
+            <Entry x:Name="EmailEntry"
+                   Placeholder="email@provedor.com.br"
+                   FontFamily="QuicksandLight"
+                   PlaceholderColor="Gray"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   HeightRequest="45"
+                   WidthRequest="280"
+                   Keyboard="Email"/>
+
+
+
+            <Button x:Name="ProximoButton1"
+             Text="Proximo"
+             BackgroundColor="#4b0082"
+             TextColor="White"
+             CornerRadius="15"
+             Padding="20,10"
+             FontFamily="QuicksandRegular"                    
+             Clicked="ProximoButton1_Clicked"
+             WidthRequest="280"
+             HeightRequest="45"/>
+
+
+
+
+
+
+        </VerticalStackLayout>
+
+
+
+        <!-- Boão de Voltar -->
+        <VerticalStackLayout HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         Spacing="10"
+                         Padding="60,0,0,20">
+            <HorizontalStackLayout Spacing="15"
+                               HorizontalOptions="Start">
+
+                <Button x:Name="VoltarButton1"
+                    Text="Voltar"
+                    BackgroundColor="#FFFFFF"
+                    TextColor="#4D2D8C"
+                    Opacity="0.8"
+                    CornerRadius="20"
+                    Padding="20,10"
+                    FontFamily="QuicksandRegular"
+                    Clicked="VoltarButton1_Clicked"
+                    WidthRequest="120"
+                    HeightRequest="40"/>
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

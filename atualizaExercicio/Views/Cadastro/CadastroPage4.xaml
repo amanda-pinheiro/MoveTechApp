@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.Cadastro.CadastroPage4"
+             Title="CadastroPage4">
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+           VerticalOptions="Fill"
+           HorizontalOptions="Fill"/>
+
+        <BoxView BackgroundColor="#80000000"
+             VerticalOptions="FillAndExpand"
+             HorizontalOptions="FillAndExpand"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Start"
+                         Spacing="0">
+
+            <Grid BackgroundColor="#010101" 
+              Padding="15,10" 
+              HeightRequest="70" 
+              VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                   TextColor="Lavender"
+                   FontSize="20"
+                   FontFamily="QuicksandMedium"
+                   VerticalOptions="Center"
+                   Grid.Column="0"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Conteúdo Central -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Spacing="10"
+                         Padding="0">
+
+            <!-- Título Tudo Pronto -->
+            <VerticalStackLayout BackgroundColor="#804b0082"
+                           HorizontalOptions="FillAndExpand"
+                           Margin="0,0,0,10">
+                <Label Text="Tudo Pronto!"
+                   TextColor="Lavender"
+                   FontSize="20"
+                   FontFamily="QuicksandRegular"
+                   HorizontalOptions="Center"
+                   Padding="0,10"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Spacing="10"
+                         Padding="0"
+                         BackgroundColor="#010101">
+
+                <Label HorizontalOptions="Center" 
+                       HorizontalTextAlignment="Center"
+                       WidthRequest="300"
+                       Margin="10"
+                       Text="Seu cadastro foi realizado com sucesso!"
+                       TextColor="#85ED60"
+                       FontSize="14"
+                       FontFamily="QuicksandLight"/>
+
+                <Label HorizontalOptions="Center" 
+                       HorizontalTextAlignment="Center"
+                       WidthRequest="300"
+                       Margin="20,10,10,10"
+                       Text="Agora você pode criar, visualizar e atualizar suas rotinas de treino personalizadas!"
+                       TextColor="LightGray"
+                       FontSize="12"
+                       FontFamily="QuicksandLight"/>
+
+                <Button x:Name="ComecarButton"
+                        Text="Clique aqui para começar!"
+                        BackgroundColor="#4b0082"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Padding="10"
+                        Margin="20"
+                        WidthRequest="320"
+                        HeightRequest="30"                        
+                        FontFamily="QuicksandRegular"
+                        Clicked="ComecarButton_Clicked"/>
+
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+
+        <!-- Botões na parte inferior -->
+        <VerticalStackLayout HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       Spacing="10"
+                       Padding="0,0,0,20">
+            <HorizontalStackLayout Spacing="15"
+                             HorizontalOptions="Center">
+
+                <Button x:Name="VoltarButton4"
+                    Text="Voltar"
+                    BackgroundColor="#FFFFFF"
+                    Opacity="0.7"
+                    TextColor="#4D2D8C"
+                    CornerRadius="20"
+                    Margin="20,0,0,0"    
+                    Padding="10"
+                    WidthRequest="120"
+                    FontFamily="QuicksandRegular"
+                    Clicked="VoltarButton4_Clicked"/>
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

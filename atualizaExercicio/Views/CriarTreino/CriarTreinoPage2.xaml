@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.CriarTreino.CriarTreinoPage2"
+             Title="CriarTreinoPage2"
+             BackgroundColor="#0F0F10">
+
+    <Grid RowDefinitions="60,*" Padding="0">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" 
+              BackgroundColor="#0F0F10" 
+              Padding="15,0"
+              ColumnDefinitions="50,*">
+
+            <Label x:Name="MenuButton"
+                   Grid.Column="0"
+                   Text="☰"
+                   TextColor="White"
+                   FontSize="24"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="MenuButton_Clicked"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Grid.Column="1"
+                   Text="MoveTech"
+                   TextColor="White"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   Margin="0,0,10,0"
+                   FontFamily="QuicksandRegular"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="20" Spacing="20">
+
+                <!-- Título Treino -->
+                <Label Text="Treino"
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       Margin="0,10,0,10"
+                       HorizontalOptions="Center"
+                       FontFamily="QuicksandRegular"/>
+
+                <!-- Frame Único com todo o conteúdo -->
+                <Frame BackgroundColor="#4A795CB3"
+                       BorderColor="#1E1E2E"
+                       CornerRadius="10"
+                       Padding="20"
+                       HasShadow="False">
+
+                    <StackLayout Spacing="15">
+
+                        <Label Text="Exercício"
+                               TextColor="#FFFFFF"
+                               FontSize="18"
+                               FontFamily="QuicksandRegular"
+                               HorizontalOptions="Start"
+                               VerticalOptions="End"/>
+
+
+                        <!-- Divisor -->
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="#FFFFFF"
+                                 Margin="0,5,0,5"/>
+
+                        <!-- Card Exercício -->
+                        <Grid ColumnDefinitions="50,*,30">
+
+                            <!-- Ícone -->
+                            <Frame Grid.Column="0"
+                                   BackgroundColor="#B8B8C8"
+                                   CornerRadius="8"                                   
+                                   HasShadow="False"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   Padding="0">
+                                <!-- ✅ PADDING REMOVIDO -->
+
+                                <Image x:Name="ImagemExercicio"
+                                       Source="placeholder_exercicio.png"
+                                       Aspect="AspectFill"
+                                       HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"/>
+                                    <!-- ✅ MUDADO PARA FILL -->
+                            </Frame>
+
+                            <!-- Nome do Exercício -->
+                            <StackLayout Grid.Column="1" 
+                                         VerticalOptions="Center" 
+                                         Spacing="2"
+                                         Margin="5">
+
+
+                                <Label x:Name="NomeExercicioLabel"
+                                       Text="Agachamento no Smith"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       FontFamily="QuicksandRegular"/>
+                            </StackLayout>
+
+                            <!-- Menu -->
+                            <Label Grid.Column="2"
+                                   Text="⋮"
+                                   TextColor="White"
+                                   FontSize="24"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Divisor -->
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="#FFFFFF"
+                                 Margin="0,5,0,5"/>
+
+                        <!-- Seção Parâmetros -->
+                        <StackLayout Spacing="15">
+
+                            <Label Text="Seus Parâmetros"
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   Margin="0,0,0,5"
+                                   FontFamily="QuicksandRegular"
+                                   HorizontalOptions="Center"/>
+
+                            <!-- Divisor -->
+                            <BoxView HeightRequest="1"
+                                     BackgroundColor="#FFFFFF"
+                                     Margin="0,5,0,5"/>
+
+                            <!-- Séries -->
+                            <Grid ColumnDefinitions="*,150">
+                                <Label Grid.Column="0"
+                                       Text="Séries"
+                                       TextColor="#B8B8C8"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       FontFamily="QuicksandRegular"/>
+                                <Entry x:Name="SeriesEntry"
+                                       Grid.Column="1"
+                                       Text="3"
+                                       TextColor="White"
+                                       BackgroundColor="#2A2A3E"
+                                       HorizontalTextAlignment="Center"
+                                       HeightRequest="40"
+                                       FontFamily="QuicksandRegular"/>
+                            </Grid>
+
+                            <!-- Repetições -->
+                            <Grid ColumnDefinitions="*,150">
+                                <Label Grid.Column="0"
+                                       Text="Repetições"
+                                       TextColor="#B8B8C8"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       FontFamily="QuicksandRegular"/>
+                                <Entry x:Name="RepsEntry"
+                                       Grid.Column="1"
+                                       Text="12"
+                                       TextColor="White"
+                                       BackgroundColor="#2A2A3E"
+                                       HorizontalTextAlignment="Center"
+                                       HeightRequest="40"
+                                       FontFamily="QuicksandRegular"/>
+                            </Grid>
+
+                            <!-- Carga -->
+                            <Grid ColumnDefinitions="*,150">
+                                <Label Grid.Column="0"
+                                       Text="Carga"
+                                       TextColor="#B8B8C8"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       FontFamily="QuicksandRegular"/>
+                                <Entry x:Name="CargaEntry"
+                                       Grid.Column="1"
+                                       Text=""
+                                       TextColor="White"
+                                       BackgroundColor="#2A2A3E"
+                                       HorizontalTextAlignment="Center"
+                                       HeightRequest="40"
+                                       PlaceholderColor="#7A7A8E"
+                                       FontFamily="QuicksandRegular"/>
+                            </Grid>
+
+                            <!-- Intervalo -->
+                            <Grid ColumnDefinitions="*,150">
+                                <Label Grid.Column="0"
+                                       Text="Intervalo"
+                                       TextColor="#B8B8C8"
+                                       FontSize="14"
+                                       VerticalOptions="Center"
+                                       FontFamily="QuicksandRegular"/>
+                                <Picker x:Name="IntervaloPicker"
+                                        Grid.Column="1"
+                                        TextColor="White"
+                                        BackgroundColor="#2A2A3E"
+                                        HorizontalTextAlignment="Center"
+                                        HeightRequest="40"
+                                        SelectedIndex="2"
+                                        FontFamily="QuicksandRegular">
+                                    <Picker.Items>
+                                        <x:String>30 seg</x:String>
+                                        <x:String>1 min</x:String>
+                                        <x:String>1 min 30 seg</x:String>
+                                        <x:String>2 min</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Grid>
+
+                        </StackLayout>
+
+                        <!-- Divisor -->
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="#FFFFFF"
+                                 Margin="0,5,0,5"/>
+
+                        <!-- Observações -->
+                        <StackLayout Spacing="10">
+                            <Label Text="Observações:"
+                                   TextColor="White"
+                                   FontSize="14"
+                                   FontFamily="QuicksandRegular"/>
+
+                            <Editor x:Name="ObservacoesEditor"
+                                    BackgroundColor="#2A2A3E"
+                                    TextColor="White"
+                                    HeightRequest="120"
+                                    Placeholder="Digite suas observações aqui..."
+                                    PlaceholderColor="#7A7A8E"
+                                    FontFamily="QuicksandRegular"/>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+                <!-- Botão Salvar -->
+                <Button x:Name="SalvarButton"
+                        Text="Salvar Exercício"
+                        BackgroundColor="#7C3AED"
+                        TextColor="White"
+                        FontSize="16"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        Margin="0,0,0,20"
+                        Clicked="SalvarExercicio_Clicked"
+                        FontFamily="QuicksandRegular"/>
+
+            </StackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

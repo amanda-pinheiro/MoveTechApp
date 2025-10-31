@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.Cadastro.CadastroPage1"
+             Title="CadastroPage1">
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+           VerticalOptions="FillAndExpand"
+           HorizontalOptions="FillAndExpand"/>
+
+        <BoxView BackgroundColor="#80000000" 
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Start"
+                     Spacing="0">
+            <Grid BackgroundColor="#010101" 
+                  Padding="15,10" 
+                  HeightRequest="70" 
+                  VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+
+                <!-- Menu -->
+                <HorizontalStackLayout Spacing="8" 
+                               Grid.Column="2" 
+                               VerticalOptions="Center"
+                               Margin="0,0,5,0">
+                    <Button Text="Home"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                    MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Sobre"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="60"
+                            HeightRequest="32"/>
+
+                    <Button Text="Contato"
+                            BackgroundColor="#4D2D8C"
+                            TextColor="Lavender"
+                            CornerRadius="15"
+                            Padding="12,8"
+                            FontSize="13"
+                            MinimumWidthRequest="70"
+                            HeightRequest="32"/>
+
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Conteúdo central -->
+        <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Spacing="10">
+            <Label Text="Criar uma conta"
+                   TextColor="Lavender"
+                   FontSize="20"
+                   FontFamily="QuicksandSemibold"             
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Insira seu e-mail e comece a&#10;      treinar agora mesmo!"
+               TextColor="Lavender"
+               FontSize="14"
+               FontFamily="QuicksandLight"
+               HorizontalOptions="Center"
+               />
+
+            <Entry x:Name="EmailEntry"
+                   Placeholder="email@provedor.com.br"
+                   FontFamily="QuicksandLight"
+                   PlaceholderColor="Gray"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   HeightRequest="45"
+                   WidthRequest="280"
+                   Keyboard="Email"/>
+
+
+
+            <Button x:Name="ContinuarButton1"
+                    Text="Continuar"
+                    BackgroundColor="#4b0082"
+                    TextColor="White"
+                    CornerRadius="15"
+                    Padding="20,10"
+                    FontFamily="QuicksandRegular"                    
+                    Clicked="ContinuarButton1_Clicked"
+                    WidthRequest="280"
+                    HeightRequest="45"/>
+
+            <Label HorizontalOptions="Center" 
+                   HorizontalTextAlignment="Center"
+                   WidthRequest="300"
+                   Margin="10">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ao clicar em continuar, você concorda com os nossos "
+                              TextColor="LightGray"
+                              FontSize="12"
+                              FontFamily="QuicksandLight"/>
+                        <Span Text="Termos de Serviço"
+                              TextColor="White" 
+                              FontSize="12"
+                              FontFamily="QuicksandMedium"/>
+                        <Span Text=" e com a "
+                              TextColor="LightGray"
+                              FontSize="12"
+                              FontFamily="QuicksandLight"/>
+                        <Span Text="Política de Privacidade"
+                              TextColor="White"
+                              FontSize="12" 
+                              FontFamily="QuicksandMedium"/>
+                        <Span Text="."
+                              TextColor="LightGray"
+                              FontSize="12"
+                              FontFamily="QuicksandLight"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+
+        </VerticalStackLayout>
+
+
+
+        <!-- Boão de Voltar -->
+        <VerticalStackLayout HorizontalOptions="Start"
+               VerticalOptions="End"
+               Spacing="10"
+               Padding="0,0,0,20">
+            <HorizontalStackLayout Spacing="15"
+                     HorizontalOptions="Center">
+
+                <Button x:Name="VoltarButton1"
+                        Text="Voltar"
+                        BackgroundColor="#FFFFFF"
+                        Opacity="0.7"
+                        TextColor="#4D2D8C"
+                        CornerRadius="20"
+                        Margin="20,0,0,0"    
+                        Padding="10"
+                        WidthRequest="120"
+                        FontFamily="QuicksandRegular"            
+                        Clicked="VoltarButton1_Clicked"                    
+                        HeightRequest="40"/>
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
