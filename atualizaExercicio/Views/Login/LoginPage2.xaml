@@ -13,8 +13,6 @@
              VerticalOptions="Fill"
              HorizontalOptions="Fill"/>
 
-
-
         <!-- Header -->
         <VerticalStackLayout HorizontalOptions="FillAndExpand"
                      VerticalOptions="Start"
@@ -32,13 +30,14 @@
                 <!-- Logo -->
                 <Label Text="MoveTech"
                        TextColor="Lavender"
-                       FontSize="20"
+                       FontSize="30"
+                       Margin="0,0,10,0"
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
-                       Grid.Column="0"/>
+                       Grid.Column="2"/>
 
                 <!-- Menu -->
-                <HorizontalStackLayout Spacing="8" 
+                <!--HorizontalStackLayout Spacing="8" 
                                Grid.Column="2" 
                                VerticalOptions="Center"
                                Margin="0,0,5,0">
@@ -48,7 +47,7 @@
                             CornerRadius="15"
                             Padding="12,8"
                             FontSize="13"
-                    MinimumWidthRequest="60"
+                            MinimumWidthRequest="60"
                             HeightRequest="32"/>
 
                     <Button Text="Sobre"
@@ -69,10 +68,9 @@
                             MinimumWidthRequest="70"
                             HeightRequest="32"/>
 
-                </HorizontalStackLayout>
+                </HorizontalStackLayout-->
             </Grid>
         </VerticalStackLayout>
-
 
         <!-- Conteúdo central -->
         <VerticalStackLayout HorizontalOptions="Center"
@@ -82,20 +80,20 @@
             TextColor="Lavender"
             FontSize="20"
             FontFamily="QuicksandSemibold"             
-            HorizontalOptions="Center"/>
+            HorizontalOptions="Center"
+            Margin="0,0,0,15"/>
 
-            <Label Text="Email"
+          
+            <!--Label Text="email"
             TextColor="Lavender"
             FontSize="14"
             FontFamily="QuicksandLight"
-            HorizontalOptions="Center"/>
+            HorizontalOptions="Center"/-->
 
-            <Entry x:Name="EmailEntry"
-            Placeholder="email@provedor.com.br"
-            FontFamily="QuicksandLight"
-            PlaceholderColor="Gray"
-            TextColor="Black"
-            BackgroundColor="White"
+            <Entry x:Name="EmailEntry"            
+            FontFamily="QuicksandLight"            
+            TextColor="White"
+            BackgroundColor="#804D2D8C"
             HeightRequest="45"
             WidthRequest="280"
             Keyboard="Email"/>
@@ -134,22 +132,14 @@
 
             <Button Text="Entrar"
             BackgroundColor="#4D2D8C"
-            TextColor="Lavender"
+            Opacity=".90"
+            TextColor="White"
             CornerRadius="20"
             Padding="10"
             WidthRequest="280"
             Clicked="LoginButton_Clicked"/>
 
-
-
-
             <!-- funcionar excluir -->
-
-
-
-
-
-
 
         </VerticalStackLayout>
     </Grid>

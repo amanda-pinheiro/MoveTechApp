@@ -34,7 +34,7 @@
                    FontSize="20"
                    FontFamily="QuicksandMedium"
                    VerticalOptions="Center"
-                   Grid.Column="0"/>
+                   Grid.Column="2"/>
             </Grid>
         </VerticalStackLayout>
 

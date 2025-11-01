@@ -30,13 +30,14 @@
                 <!-- Logo -->
                 <Label Text="MoveTech"
                        TextColor="Lavender"
-                       FontSize="20"
+                       FontSize="30"
+                       Margin="0,0,10,0"
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
-                       Grid.Column="0"/>
+                       Grid.Column="2"/>
 
                 <!-- Menu -->
-                <HorizontalStackLayout Spacing="8" 
+                <!--HorizontalStackLayout Spacing="8" 
                                Grid.Column="2" 
                                VerticalOptions="Center"
                                Margin="0,0,5,0">
@@ -46,7 +47,7 @@
                             CornerRadius="15"
                             Padding="12,8"
                             FontSize="13"
-                    MinimumWidthRequest="60"
+                            MinimumWidthRequest="60"
                             HeightRequest="32"/>
 
                     <Button Text="Sobre"
@@ -67,7 +68,7 @@
                             MinimumWidthRequest="70"
                             HeightRequest="32"/>
 
-                </HorizontalStackLayout>
+                </HorizontalStackLayout-->
             </Grid>
         </VerticalStackLayout>
 
@@ -85,8 +86,7 @@
                TextColor="Lavender"
                FontSize="15"
                FontFamily="QuicksandLight"
-               HorizontalOptions="Center"
-               />
+               HorizontalOptions="Center"/>
 
             <Entry x:Name="EmailEntry"
                    Placeholder="email@provedor.com.br"
@@ -103,7 +103,7 @@
             <Button x:Name="ProximoButton1"
              Text="Proximo"
              BackgroundColor="#4b0082"
-             TextColor="White"
+             TextColor="Lavender"
              CornerRadius="15"
              Padding="20,10"
              FontFamily="QuicksandRegular"                    
@@ -111,14 +111,7 @@
              WidthRequest="280"
              HeightRequest="45"/>
 
-
-
-
-
-
         </VerticalStackLayout>
-
-
 
         <!-- Boão de Voltar -->
         <VerticalStackLayout HorizontalOptions="Start"

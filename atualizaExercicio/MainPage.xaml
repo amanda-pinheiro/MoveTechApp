@@ -30,13 +30,14 @@
                 <!-- Logo -->
                 <Label Text="MoveTech"
                        TextColor="Lavender"
-                       FontSize="20"
+                       FontSize="30"
+                       Margin="0,0,10,0"
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
-                       Grid.Column="0"/>
+                       Grid.Column="2"/>
 
                 <!-- Menu -->
-                <HorizontalStackLayout Spacing="8" 
+                <!--HorizontalStackLayout Spacing="8" 
                         Grid.Column="2" 
                         VerticalOptions="Center"
                         Margin="0,0,5,0">
@@ -68,7 +69,7 @@
                             MinimumWidthRequest="70"
                             HeightRequest="32"/>
 
-                </HorizontalStackLayout>
+                </HorizontalStackLayout-->
             </Grid>
         </VerticalStackLayout>
 

@@ -7,9 +7,13 @@ namespace atualizaExercicio.Views.Login
 {
     public partial class LoginPage2 : ContentPage
     {
-        public LoginPage2()
+        private string _email;
+        public LoginPage2(string email)
         {
             InitializeComponent();
+            _email = email;
+            EmailEntry.Text = email;
+            EmailEntry.IsEnabled = false;
         }
 
         private async void LoginButton_Clicked(object sender, EventArgs e)

@@ -32,9 +32,10 @@
                 <Label Text="MoveTech"
                        TextColor="Lavender"
                        FontSize="20"
+                       Margin="0,0,0,10"
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
-                       Grid.Column="0"/>
+                       Grid.Column="2"/>
             </Grid>
         </VerticalStackLayout>
 
