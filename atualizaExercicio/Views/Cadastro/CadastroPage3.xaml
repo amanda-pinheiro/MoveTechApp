@@ -42,8 +42,7 @@
         <VerticalStackLayout HorizontalOptions="FillAndExpand"
                              VerticalOptions="Center"
                              Spacing="10"
-                             Padding="0"
-                             >
+                             Padding="0">
 
             <!-- Título Senha -->
             <VerticalStackLayout BackgroundColor="#804b0082"
@@ -54,7 +53,7 @@
                        FontSize="20"
                        FontFamily="QuicksandRegular"
                        HorizontalOptions="Center"
-                       Padding="0,10"/>
+                       Padding="0,5"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout HorizontalOptions="FillAndExpand"
@@ -64,8 +63,9 @@
                              BackgroundColor="#010101">
 
                 <!-- Senha -->
-                <Grid BackgroundColor="#010101" 
-                          Padding="10" 
+                <Grid BackgroundColor="#010101"
+                          Padding="10"
+                          Margin="10,0,10,0"
                           HeightRequest="85"
                           VerticalOptions="Start"
                           HorizontalOptions="FillAndExpand">
@@ -108,8 +108,9 @@
 
                 <!-- Confirme sua senha -->
                 <Grid BackgroundColor="#010101" 
-                          Padding="10" 
-                          HeightRequest="85"
+                          Padding="10"
+                          Margin="10,0,10,0"
+                          HeightRequest="100"
                           VerticalOptions="Start"
                           HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -124,6 +125,7 @@
                            Grid.Row="0"          
                            Margin="5,0,10,0"/>
 
+                    <!-- Container para Entry + Ícone -->
                     <Grid Grid.Row="1" Margin="0,5,0,0">
                         <Entry x:Name="ConfSenhaEntry"
                            Placeholder="Senha"
@@ -153,7 +155,7 @@
                 <Label HorizontalOptions="Start" 
                        HorizontalTextAlignment="Start"
                        WidthRequest="300"
-                       Margin="10"
+                       Margin="20,10,0,0"
                        Text="A senha deve ter:"
                        TextColor="LightGray"
                        FontSize="12"
@@ -196,10 +198,7 @@
                        FontFamily="QuicksandLight"/>
             </VerticalStackLayout>
 
-
-
         </VerticalStackLayout>
-
 
         <!-- Botões na parte inferior -->
         <VerticalStackLayout HorizontalOptions="Center"

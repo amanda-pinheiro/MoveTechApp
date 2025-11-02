@@ -3,84 +3,98 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="atualizaExercicio.Views.CriarTreino.CriarTreinoPage1"
              Title="CriarTreinoPage1">
+    
+        <Grid>
+            <!-- Imagem de fundo -->
+            <Image Source="apptela.jpg" Aspect="AspectFill" 
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"/>
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <!-- Colors -->
-            <Color x:Key="BgDark">#0F0F10</Color>
-            <Color x:Key="CardDark">#1A1A1C</Color>
-            <Color x:Key="Accent">#6F3BFF</Color>
-            <Color x:Key="AccentDark">#5A2EE6</Color>
+            <BoxView BackgroundColor="#80000000" 
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"/>
 
-            <!-- Text Styles -->
-            <Style x:Key="TitleLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="FontFamily" Value="QuicksandRegular"/>
-            </Style>
+            <AbsoluteLayout>
+                <Grid RowDefinitions="Auto,Auto,Auto,*,Auto "
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All">
 
-            <Style x:Key="SubLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="13"/>
-                <Setter Property="TextColor" Value="#BBBBBB"/>
-                <Setter Property="FontFamily" Value="QuicksandRegular"/>
-            </Style>
+                <!--Header-->
+                <Grid Grid.Row="0"             
+                     Padding="15,10" 
+                     HeightRequest="70"                
+                     VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-            <Style x:Key="SmallLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="11"/>
-                <Setter Property="TextColor" Value="#9E9E9E"/>
-                <Setter Property="FontFamily" Value="QuicksandLight"/>
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
-    <Grid>
-        
-
-        <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="16">
-
-            
-
-            <!-- Título da página -->
-            <Label Grid.Row="1"
+                    <!-- Menu hamburguer -->
+                    <ImageButton Source="menu_burguer_34dp.png"                          
+                           WidthRequest="25"
+                           HeightRequest="25"
+                           BackgroundColor="Transparent"
+                           Grid.Column="0"
+                           Clicked="OnMenuClicked"/>
+                    <!-- Logo -->
+                    <Label Text="MoveTech"
+                         TextColor="Lavender"
+                         FontSize="20"
+                         FontFamily="QuicksandMedium"
+                         VerticalOptions="Center"
+                         Grid.Column="2"/>
+            </Grid>  
+          
+                <!-- Título da página -->
+                <Label Grid.Row="1"
                    Text="Adicionar Exercício"                 
                    FontSize="20"
+                   Margin="0,0,0,10"
                    HorizontalOptions="Center"/>
 
-            
+                <!-- Barra de busca -->
+                <SearchBar Grid.Row="2"
+                           Margin="10,0,10,0"
+                           x:Name="SearchBarExercicio"
+                           Placeholder="Procurar exercício"
+                           PlaceholderColor="#CABAEB"
+                           BackgroundColor="#2C2C2C"
+                           TextColor="#CABAEB"
+                           FontFamily="QuicksandRegular"
+                           HeightRequest="45"
+                           TextChanged="SearchBar_TextChanged"/>
 
-            <!-- Área de conteúdo -->
-            <ScrollView Grid.Row="2">
-                <VerticalStackLayout Spacing="16">
+                <!-- Área de conteúdo -->
+                <ScrollView Grid.Row="3" Margin="10,10,10,0">
+                        <VerticalStackLayout Spacing="16">
 
-                    <!-- Barra de busca -->
-                    <SearchBar x:Name="SearchBarExercicio"
-                               Placeholder="Procurar exercício"
-                               PlaceholderColor="#CABAEB"
-                               BackgroundColor="#2C2C2C"
-                               TextColor="#CABAEB"
-                               FontFamily="QuicksandRegular"
-                               HeightRequest="45"
-                               TextChanged="SearchBar_TextChanged"/>
+                        <!-- Barra de busca>
+                        <SearchBar x:Name="SearchBarExercicio"
+                                   Placeholder="Procurar exercício"
+                                   PlaceholderColor="#CABAEB"
+                                   BackgroundColor="#2C2C2C"
+                                   TextColor="#CABAEB"
+                                   FontFamily="QuicksandRegular"
+                                   HeightRequest="45"
+                                   TextChanged="SearchBar_TextChanged"/-->
 
-                    <!-- Label: Lista de Exercícios -->
-                    <Label Text="Lista de Exercícios"
-                           FontSize="14"
-                           Margin="0,8,0,0"/>
+                            <!-- Label: Lista de Exercícios -->
+                            <Label Text="Lista de Exercícios"
+                                   FontSize="14"
+                                   Margin="0,0,0,5"/>
 
-                    <!-- Lista de exercícios -->
-                    <VerticalStackLayout x:Name="ListaExerciciosContainer" 
-                                         Spacing="12">
-                        <!-- Os exercícios serão adicionados dinamicamente aqui -->
-                    </VerticalStackLayout>
+                            <!-- Lista de exercícios -->
+                            <VerticalStackLayout x:Name="ListaExerciciosContainer" 
+                                             Spacing="12">
+                            <!-- Os exercícios serão adicionados dinamicamente aqui -->
+                            </VerticalStackLayout>
 
-                </VerticalStackLayout>
-            </ScrollView>
-            
-
-        </Grid>
-        <VerticalStackLayout VerticalOptions="End" Background="#202020"  Padding="15">
-            <!-- Botão Salvar -->
-            <Button x:Name="SalvarTreinoButton"
+                        </VerticalStackLayout>
+                    </ScrollView>               
+        
+                <!-- Botão Salvar -->
+                <Button x:Name="SalvarTreinoButton"
                     Text="Salvar Treino"
                     BackgroundColor="#7C3AED"
                     TextColor="White"
@@ -88,11 +102,62 @@
                     HeightRequest="40"
                     WidthRequest="327"
                     CornerRadius="25"
-                    Margin="0,0,0,20"
+                    Margin="0,10,0,10"
                     Clicked="SalvarButton2_Clicked"
                     FontFamily="QuicksandRegular"
-                    VerticalOptions="Center"/>
-        </VerticalStackLayout>
+                    VerticalOptions="Center"
+                    Grid.Row="4"/>
+      
+                </Grid>
+
+                <!--overlay do fundo, que ao clicar em qualquer lugar o menu burguer fecha-->
+                <BoxView x:Name="OverlayFundo"
+                         BackgroundColor="Black"
+                         Opacity="0.01"
+                         IsVisible="False"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
+                    <BoxView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnOverlayTapped" />
+                    </BoxView.GestureRecognizers>
+                </BoxView>
+
+                <!-- Menu que aparece ao clicar o burguer  -->
+                <Frame x:Name="MenuLateral"
+                   IsVisible="False"
+                   Padding="0" 
+                   Margin="0"
+                   WidthRequest="80"    
+                   TranslationX="22"
+                   TranslationY="50"
+                   HasShadow="False"
+                   BackgroundColor="Transparent"    
+                   BorderColor="Transparent"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Start">
+
+                <VerticalStackLayout Spacing="0">
+                    <Button Text="Home" Clicked="Home_Clicked"
+                        BackgroundColor="Grey"
+                        FontSize="12"
+                        CornerRadius="0"/>
+                    <Button Text="Sobre" Clicked="Sobre_Clicked"
+                        BackgroundColor="Grey"
+                        FontSize="12"
+                        CornerRadius="0"/>
+                    <Button Text="Contato" Clicked="Contato_Clicked"
+                        BackgroundColor="Grey"
+                        FontSize="12"
+                        CornerRadius="0"/>
+                    <Button Text="Logout" Clicked="Logout_Clicked"
+                        BackgroundColor="Grey"
+                        FontSize="12"
+                        CornerRadius="0"/>
+                </VerticalStackLayout>
+            </Frame>
+                
+        </AbsoluteLayout>
     </Grid>
+   
 
 </ContentPage>

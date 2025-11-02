@@ -2,23 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="atualizaExercicio.Views.Cadastro.CadastroPage2"
-             Title="CadastroPage2">
+             Title="CadastroPage2"
+             Background="#010101">
     <Grid>
-        <!-- Imagem de fundo -->
+        <!-- Imagem de fundo >
         <Image Source="apptela.jpg" Aspect="AspectFill" 
                VerticalOptions="Fill"
                HorizontalOptions="Fill"/>
 
         <BoxView BackgroundColor="#80000000"
                  VerticalOptions="FillAndExpand"
-                 HorizontalOptions="FillAndExpand"/>
+                 HorizontalOptions="FillAndExpand"/-->
 
         <!-- Header -->
-        <VerticalStackLayout HorizontalOptions="FillAndExpand"
-                             VerticalOptions="Start"
-                             Spacing="0">
-
-            <Grid BackgroundColor="#010101" 
+        <Grid RowDefinitions ="Auto,Auto,*,Auto">
+            <Grid Grid.Row ="0"
+                BackgroundColor="#010101" 
                   Padding="15,10" 
                   HeightRequest="70" 
                   VerticalOptions="Start">
@@ -37,220 +36,231 @@
                        VerticalOptions="Center"
                        Grid.Column="2"/>
             </Grid>
-        </VerticalStackLayout>
 
-        <!-- Conteúdo Central -->
-        <VerticalStackLayout HorizontalOptions="FillAndExpand"
-                             VerticalOptions="Center"
-                             Spacing="10"
+
+            <!-- Conteúdo Central -->
+            <VerticalStackLayout Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center"                            
                              Padding="0"
                              BackgroundColor="#010101">
 
-            <!-- Título Cadastro -->
-            <VerticalStackLayout BackgroundColor="#804b0082"
+                <!-- Título Cadastro -->
+                <VerticalStackLayout 
+                               BackgroundColor="#804b0082"
+                               Opacity="0.8"
                                HorizontalOptions="FillAndExpand"
-                               Margin="0,0,0,10">
-                <Label Text="Cadastro"
+                               Margin="0,0,0,5">
+                    <Label Text="Cadastro"
                        TextColor="Lavender"
-                       FontSize="20"
+                       FontSize="18"
                        FontFamily="QuicksandRegular"
                        HorizontalOptions="Center"
-                       Padding="0,10"/>
+                       Padding="0,5"/>
+                </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <!-- Campo Nome -->
-            <Grid BackgroundColor="#010101" 
-                  Padding="10" 
-                  HeightRequest="85"
-                  VerticalOptions="Start"
-                  HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+            
+                <Frame Grid.Row="2"
+                       BackgroundColor="#010101"
+                       BorderColor="Transparent"
+                       Margin="10,0,10,0">
+                <ScrollView VerticalScrollBarVisibility="Never"
+                            HorizontalScrollBarVisibility="Never" >
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                    <!-- Campo Nome -->
+                    <Grid Grid.Row="0"                                                
+                          HeightRequest="85"
+                          VerticalOptions="Start"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                <Label Text="Nome: *"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight"
-                       Grid.Row="0"          
-                       Margin="5,0,10,0"/>
+                        <Label Text="Nome: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
 
-                <Entry x:Name="NomeEntry"
-                       Placeholder="Nome Completo"
-                       FontFamily="QuicksandLight"
-                       PlaceholderColor="Gray"
-                       TextColor="Black"
-                       BackgroundColor="White"
-                       HeightRequest="45"
-                       HorizontalOptions="FillAndExpand"
-                       Grid.Row="1"
-                       Margin="0,5,0,0"/>
-            </Grid>
+                        <Entry x:Name="NomeEntry"
+                           Placeholder="Nome Completo"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="45"
+                           HorizontalOptions="FillAndExpand"
+                           Grid.Row="1"
+                           Margin="0,5,0,0"/>
+                    </Grid>
 
-            <!-- Data de Nascimento e Gênero -->
-            <Grid BackgroundColor="#010101"
-                  Padding="10" 
-                  HeightRequest="85"
-                  VerticalOptions="Start"
-                  HorizontalOptions="FillAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+                    <!-- Data de Nascimento e Gênero -->
+                    <Grid Grid.Row="1" 
+                      HeightRequest="85"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                <Label Text="Nascimento: *"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight"  
-                       Grid.Row="0"
-                       Grid.Column="0"  
-                       Margin="5,0,10,0"/>
+                        <Label Text="Nascimento: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"  
+                           Grid.Row="0"
+                           Grid.Column="0"  
+                           Margin="5,0,10,0"/>
 
-                <Entry x:Name="DataNascimentoEntry"
-                       Placeholder="DD/MM/AAAA"
-                       FontFamily="QuicksandLight"
-                       PlaceholderColor="Gray"
-                       TextColor="Black"
-                       BackgroundColor="White"
-                       HeightRequest="45"
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       Margin="0,5,5,0"
-                       Keyboard="Numeric"
-                       MaxLength="10"/>
+                        <Entry x:Name="DataNascimentoEntry"
+                           Placeholder="DD/MM/AAAA"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="45"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="0,5,5,0"
+                           Keyboard="Numeric"
+                           MaxLength="10"/>
 
-                <Label Text="Gênero:"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight" 
-                       Grid.Row="0"
-                       Grid.Column="1"  
-                       Margin="5,0,10,0"/>
+                        <Label Text="Gênero:"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight" 
+                           Grid.Row="0"
+                           Grid.Column="1"  
+                           Margin="5,0,10,0"/>
 
-                <Picker x:Name="GeneroPicker"                          
-                        TextColor="Black"
-                        BackgroundColor="White"
-                        Grid.Row="1"
-                        Grid.Column="1" 
-                        Margin="5,5,0,0"
-                        FontFamily="QuicksandLight"
-                        FontSize="12"
-                        HeightRequest="45">
-                    <Picker.Items>
-                        <x:String>Feminino</x:String>
-                        <x:String>Masculino</x:String>
-                        <x:String>Não-binário</x:String>
-                    </Picker.Items>
-                </Picker>
-            </Grid>
+                        <Picker x:Name="GeneroPicker"                          
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            Grid.Row="1"
+                            Grid.Column="1" 
+                            Margin="5,5,0,0"
+                            FontFamily="QuicksandLight"
+                            FontSize="12"
+                            HeightRequest="45">
+                            <Picker.Items>
+                                <x:String>Feminino</x:String>
+                                <x:String>Masculino</x:String>
+                                <x:String>Não-binário</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
 
-            <!-- Nome de Usuário -->
-            <Grid BackgroundColor="#010101" 
-                  Padding="10" 
-                  HeightRequest="85"
-                  VerticalOptions="Start"
-                  HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+                    <!-- Nome de Usuário -->
+                    <Grid Grid.Row="2"
+                      HeightRequest="85"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                <Label Text="Nome de Usuário: *"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight"
-                       Grid.Row="0"          
-                       Margin="5,0,10,0"/>
+                        <Label Text="Nome de Usuário: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
 
-                <Entry x:Name="UsuarioEntry"
-                       Placeholder="seu-usuario"
-                       FontFamily="QuicksandLight"
-                       PlaceholderColor="Gray"
-                       TextColor="Black"
-                       BackgroundColor="White"
-                       HeightRequest="45"
-                       HorizontalOptions="FillAndExpand"
-                       Grid.Row="1"
-                       Margin="0,5,0,0"/>
-            </Grid>
+                        <Entry x:Name="UsuarioEntry"
+                           Placeholder="seu-usuario"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="45"
+                           HorizontalOptions="FillAndExpand"
+                           Grid.Row="1"
+                           Margin="0,5,0,0"/>
+                    </Grid>
 
-            <!-- Telefone -->
-            <Grid BackgroundColor="#010101" 
-                  Padding="10" 
-                  HeightRequest="85"
-                  VerticalOptions="Start"
-                  HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+                    <!-- Telefone -->
+                    <Grid Grid.Row="3"                        
+                      HeightRequest="85"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                <Label Text="Telefone: *"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight"
-                       Grid.Row="0"          
-                       Margin="5,0,10,0"/>
+                        <Label Text="Telefone: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
 
-                <Entry x:Name="TelefoneEntry"
-                       Placeholder="(11) 9.9999-9999"
-                       FontFamily="QuicksandLight"
-                       PlaceholderColor="Gray"
-                       TextColor="Black"
-                       BackgroundColor="White"
-                       HeightRequest="45"
-                       HorizontalOptions="FillAndExpand"
-                       Grid.Row="1"
-                       Margin="0,5,0,0"
-                       Keyboard="Telephone"
-                       MaxLength="16"/>
-            </Grid>
+                        <Entry x:Name="TelefoneEntry"
+                           Placeholder="(11) 9.9999-9999"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="45"
+                           HorizontalOptions="FillAndExpand"
+                           Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Keyboard="Telephone"
+                           MaxLength="16"/>
+                    </Grid>
 
-            <!-- Confirme seu e-mail -->
-            <Grid BackgroundColor="#010101" 
-                  Padding="10" 
-                  HeightRequest="85"
-                  VerticalOptions="Start"
-                  HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+                    <!-- Confirme seu e-mail -->
+                    <Grid Grid.Row="4"                         
+                      HeightRequest="85"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                <Label Text="Confirme seu e-mail: *"
-                       TextColor="Lavender"
-                       FontSize="14"
-                       FontFamily="QuicksandLight"
-                       Grid.Row="0"          
-                       Margin="5,0,10,0"/>
+                        <Label Text="Confirme seu e-mail: *"
+                           TextColor="Lavender"
+                           FontSize="14"
+                           FontFamily="QuicksandLight"
+                           Grid.Row="0"          
+                           Margin="5,0,10,0"/>
 
-                <Entry x:Name="ConfEmailEntry"
-                       Placeholder="email@dominio.com"
-                       FontFamily="QuicksandLight"
-                       PlaceholderColor="Gray"
-                       TextColor="Black"
-                       BackgroundColor="White"
-                       HeightRequest="45"
-                       HorizontalOptions="FillAndExpand"
-                       Grid.Row="1"
-                       Margin="0,5,0,0"
-                       Keyboard="Email"/>
-            </Grid>
-        </VerticalStackLayout>
+                        <Entry x:Name="ConfEmailEntry"
+                           Placeholder="email@dominio.com"
+                           FontFamily="QuicksandLight"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="45"
+                           HorizontalOptions="FillAndExpand"
+                           Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Keyboard="Email"/>
+                    </Grid>
+                </Grid>
+                </ScrollView>
+            </Frame>
+           
 
-        <!-- Botões na parte inferior -->
-        <VerticalStackLayout HorizontalOptions="Center"
+
+            <!-- Botões na parte inferior -->
+            <VerticalStackLayout Grid.Row="3"
+                HorizontalOptions="Center"
                            VerticalOptions="End"
                            Spacing="10"
                            Padding="0,0,0,20">
-            <HorizontalStackLayout Spacing="15"
+                <HorizontalStackLayout Spacing="15"
                                  HorizontalOptions="Center">
-                <Button x:Name="VoltarButton2"
+                    <Button x:Name="VoltarButton2"
                         Text="Voltar"
                         BackgroundColor="#FFFFFF"
                         Opacity="0.7"
@@ -261,7 +271,7 @@
                         FontFamily="QuicksandRegular"
                         Clicked="VoltarButton2_Clicked"/>
 
-                <Button x:Name="ContinuarButton2"
+                    <Button x:Name="ContinuarButton2"
                         Text="Continuar"
                         BackgroundColor="#4b0082"
                         TextColor="White"
@@ -270,7 +280,8 @@
                         WidthRequest="120"
                         FontFamily="QuicksandRegular"
                         Clicked="ContinuarButton2_Clicked"/>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

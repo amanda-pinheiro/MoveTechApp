@@ -5,45 +5,49 @@
              Title="CriarTreinoPage2"
              BackgroundColor="#0F0F10">
 
-    <Grid RowDefinitions="60,*" Padding="0">
 
-        <!-- Header -->
-        <Grid Grid.Row="0" 
-              BackgroundColor="#0F0F10" 
-              Padding="15,0"
-              ColumnDefinitions="50,*">
+    <AbsoluteLayout>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="0"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
 
-            <Label x:Name="MenuButton"
-                   Grid.Column="0"
-                   Text="☰"
-                   TextColor="White"
-                   FontSize="24"
-                   VerticalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="MenuButton_Clicked"/>
-                </Label.GestureRecognizers>
-            </Label>
+            <!-- Header -->
+            <Grid Grid.Row="0"             
+                 Padding="15,10" 
+                 HeightRequest="70"                
+                 VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="1"
-                   Text="MoveTech"
-                   TextColor="White"
-                   FontSize="18"
-                   VerticalOptions="Center"
-                   HorizontalOptions="End"
-                   Margin="0,0,10,0"
-                   FontFamily="QuicksandRegular"/>
+                <!-- Menu hamburguer -->
+                <ImageButton Source="menu_burguer_34dp.png"                    
+                       WidthRequest="25"
+                       HeightRequest="25"
+                       BackgroundColor="Transparent"
+                       Grid.Column="0"
+                       Clicked="OnMenuClicked"/>
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                     TextColor="Lavender"
+                     FontSize="20"
+                     FontFamily="QuicksandMedium"
+                     VerticalOptions="Center"
+                     Grid.Column="2"/>
         </Grid>
 
-        <!-- Content -->
-        <ScrollView Grid.Row="1">
-            <StackLayout Padding="20" Spacing="20">
+            <!-- Content -->
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="0" Spacing="0">
 
                 <!-- Título Treino -->
                 <Label Text="Treino"
                        TextColor="White"
                        FontSize="24"
                        FontAttributes="Bold"
-                       Margin="0,10,0,10"
+                       Margin="0,0,0,10"
                        HorizontalOptions="Center"
                        FontFamily="QuicksandRegular"/>
 
@@ -52,6 +56,7 @@
                        BorderColor="#1E1E2E"
                        CornerRadius="10"
                        Padding="20"
+                       Margin="20,0,20,0"
                        HasShadow="False">
 
                     <StackLayout Spacing="15">
@@ -62,7 +67,6 @@
                                FontFamily="QuicksandRegular"
                                HorizontalOptions="Start"
                                VerticalOptions="End"/>
-
 
                         <!-- Divisor -->
                         <BoxView HeightRequest="1"
@@ -239,22 +243,72 @@
                         </StackLayout>
 
                     </StackLayout>
-                </Frame>
-
-                <!-- Botão Salvar -->
-                <Button x:Name="SalvarButton"
-                        Text="Salvar Exercício"
-                        BackgroundColor="#7C3AED"
-                        TextColor="White"
-                        FontSize="16"
-                        HeightRequest="50"
-                        CornerRadius="25"
-                        Margin="0,0,0,20"
-                        Clicked="SalvarExercicio_Clicked"
-                        FontFamily="QuicksandRegular"/>
+                </Frame>                
 
             </StackLayout>
         </ScrollView>
+            
+            <!-- Botão Salvar -->
+            <Button x:Name="SalvarButton"
+                Text="Salvar Exercício"
+                BackgroundColor="#7C3AED"
+                Opacity="0.9"
+                TextColor="White"
+                FontSize="16"
+                WidthRequest="327"
+                HeightRequest="40"        
+                CornerRadius="25"
+                Margin="0,10,0,10"
+                Clicked="SalvarExercicio_Clicked"
+                FontFamily="QuicksandRegular"
+                Grid.Row="2"/>
+        </Grid>
 
-    </Grid>
+        <!--overlay do fundo, que ao clicar em qualquer lugar o menu burguer fecha-->
+        <BoxView x:Name="OverlayFundo"
+             BackgroundColor="Black"
+             Opacity="0.01"
+             IsVisible="False"
+             AbsoluteLayout.LayoutBounds="0,0,1,1"
+             AbsoluteLayout.LayoutFlags="All">
+             <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnOverlayTapped" />
+             </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Menu que aparece ao clicar o burguer  -->
+        <Frame x:Name="MenuLateral"
+               IsVisible="False"
+               Padding="0" 
+               Margin="0"
+               WidthRequest="80"    
+               TranslationX="22"
+               TranslationY="50"
+               HasShadow="False"
+               BackgroundColor="Transparent"    
+               BorderColor="Transparent"
+               VerticalOptions="Start"
+               HorizontalOptions="Start">
+
+            <VerticalStackLayout Spacing="0">
+                <Button Text="Home" Clicked="Home_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+                <Button Text="Sobre" Clicked="Sobre_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>  
+                <Button Text="Contato" Clicked="Contato_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+                <Button Text="Logout" Clicked="Logout_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+            </VerticalStackLayout>
+        </Frame>
+        
+    </AbsoluteLayout>
 </ContentPage>

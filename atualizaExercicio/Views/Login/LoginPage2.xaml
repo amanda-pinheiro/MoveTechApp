@@ -3,6 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="atualizaExercicio.Views.Login.LoginPage2"
              Title="LoginPage2">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="Lavender"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Grid>
         <!-- Imagem de fundo -->
         <Image Source="apptela.jpg" Aspect="AspectFill" 
@@ -35,40 +44,7 @@
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
                        Grid.Column="2"/>
-
-                <!-- Menu -->
-                <!--HorizontalStackLayout Spacing="8" 
-                               Grid.Column="2" 
-                               VerticalOptions="Center"
-                               Margin="0,0,5,0">
-                    <Button Text="Home"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Sobre"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Contato"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="70"
-                            HeightRequest="32"/>
-
-                </HorizontalStackLayout-->
+                
             </Grid>
         </VerticalStackLayout>
 
@@ -82,13 +58,6 @@
             FontFamily="QuicksandSemibold"             
             HorizontalOptions="Center"
             Margin="0,0,0,15"/>
-
-          
-            <!--Label Text="email"
-            TextColor="Lavender"
-            FontSize="14"
-            FontFamily="QuicksandLight"
-            HorizontalOptions="Center"/-->
 
             <Entry x:Name="EmailEntry"            
             FontFamily="QuicksandLight"            
