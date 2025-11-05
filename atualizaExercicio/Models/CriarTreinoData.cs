@@ -14,4 +14,6 @@ namespace atualizaExercicio.Models
         public DateTime? DataFim { get; set; }
         public int UsuarioId { get; set; } // ✅ USUÁRIO REAL (será preenchido dinamicamente)
     }
+
+
 }

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.VisualizarTreino.Visualizar_TreinoPage1"
+             Title="Visualizar_TreinoPage1"
+             Background="#0F0F10">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!-- Text Styles -->
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="QuicksandRegular"/>
+            </Style>
+
+            <Style x:Key="SubLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="TextColor" Value="#BBBBBB"/>
+                <Setter Property="FontFamily" Value="QuicksandRegular"/>
+            </Style>
+
+            <Style x:Key="SmallLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextColor" Value="#9E9E9E"/>
+                <Setter Property="FontFamily" Value="QuicksandLight"/>
+            </Style>
+
+            <Style TargetType="SearchBar">
+                <Setter Property="FontFamily" Value="QuicksandRegular"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="0"
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="All">
+
+            <!-- Header -->
+            <Grid Grid.Row="0"             
+                 Padding="15,10" 
+                 HeightRequest="70"                
+                 VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Menu hamburguer -->
+                <ImageButton Source="menu_burguer_34dp.png"                   
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   BackgroundColor="Transparent"
+                   Grid.Column="0"
+                   />
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                 TextColor="Lavender"
+                 FontSize="20"
+                 FontFamily="QuicksandMedium"
+                 VerticalOptions="Center"
+                 Grid.Column="2"/>
+            </Grid>
+
+            <!-- ✅ CORREÇÃO: Adicionado x:Name no ScrollView -->
+            <ScrollView x:Name="ScrollViewPrincipal" Grid.Row="1">
+                <VerticalStackLayout x:Name="MainContainer" Padding="16" Spacing="18">
+
+                    <!-- Search bar + Novo Treino -->
+                    <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center" ColumnSpacing="8" Padding="0">
+
+                        <!-- ✅ CORREÇÃO: Adicionado TextChanged e x:Name na SearchBar -->
+                        <SearchBar x:Name="SearchBarTreinos"
+                           Grid.Column="1"
+                           Placeholder="Buscar Treino"
+                           PlaceholderColor="#CABAEB"
+                           BackgroundColor="#2C2C2C"
+                           TextColor="#CABAEB"
+                           FontFamily="QuicksandRegular"
+                           HeightRequest="45"
+                           VerticalOptions="Center"
+                           TextChanged="SearchBar_TextChanged"/>
+
+                        <!-- Botão "Novo Treino" -->
+                        <Grid Grid.Column="2"
+                              WidthRequest="58"
+                              HeightRequest="58"
+                              HorizontalOptions="End"
+                              VerticalOptions="Center"
+                              Margin="5,0,0,0">
+
+                            <!-- ✅ CORREÇÃO: Alterado Command para Clicked -->
+                            <Button x:Name="BtnNovoTreino"
+                                    BackgroundColor="#1C1C1E"
+                                    BorderColor="#4D2D8C"
+                                    CornerRadius="16"
+                                    Padding="0"
+                                    Clicked="btn_NovoTreino"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"/>
+
+                            <!-- Visual sobreposto -->
+                            <VerticalStackLayout Spacing="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 IsVisible="True">
+                                <Label Text="+"
+                                       FontSize="30"
+                                       FontFamily="QuicksandSemibold"
+                                       TextColor="#4D2D8C"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Novo Treino"
+                                       FontSize="8"
+                                       FontFamily="QuicksandRegular"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                    </Grid>
+
+                    <!-- ✅ CORREÇÃO: Adicionado x:Name no Label para facilitar localização -->
+                    <Label x:Name="LabelSeusTreinos"
+                           Text="Seus Treinos:" 
+               		       Style="{StaticResource SubLabel}" 
+               		       FontSize="16"
+                           HorizontalOptions="Center"/>
+
+                    <!-- ✅ CORREÇÃO: Container VAZIO - cards serão adicionados dinamicamente -->
+                    <VerticalStackLayout x:Name="TreinosContainer" Spacing="12">
+                        <!-- ✅ OS CARDS SERÃO ADICIONADOS DINAMICAMENTE NO CODE-BEHIND -->
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="30" BackgroundColor="Transparent"/>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <!-- Overlay do fundo -->
+        <BoxView x:Name="OverlayFundo"
+                 BackgroundColor="Black"
+                 Opacity="0.01"
+                 IsVisible="False"
+                 AbsoluteLayout.LayoutBounds="0,0,1,1"
+                 AbsoluteLayout.LayoutFlags="All">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Menu lateral -->
+        <Frame x:Name="MenuLateral"
+               IsVisible="False"
+               Padding="0" 
+               Margin="0"
+               WidthRequest="80"    
+               TranslationX="22"
+               TranslationY="50"
+               HasShadow="False"
+               BackgroundColor="Transparent"    
+               BorderColor="Transparent"
+               VerticalOptions="Start"
+               HorizontalOptions="Start">
+
+            <VerticalStackLayout Spacing="0">
+                <Button Text="Sobre" Clicked="Sobre_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+                <Button Text="Contato" Clicked="Contato_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+                <Button Text="Logout" Clicked="Logout_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+            </VerticalStackLayout>
+        </Frame>
+
+    </AbsoluteLayout>
+</ContentPage>

@@ -10,6 +10,8 @@ namespace atualizaExercicio.Services
         Task<int> CriarTreinoAsync(CriarTreinoData treinoData); // ✅ Retorna int
         Task<bool> SalvarExercicioTreinoAsync(ExercicioParametros parametros); // ✅ Retorna bool
 
+        Task<List<TreinoCardViewModel>> BuscarTreinosCardAsync(int usuarioId);
+
     }
 
 }

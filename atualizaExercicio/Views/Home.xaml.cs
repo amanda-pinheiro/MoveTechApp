@@ -1,4 +1,5 @@
 using atualizaExercicio.Views.CriarTreino;
+using atualizaExercicio.Views.VisualizarTreino;
 namespace atualizaExercicio.Views;
 
 public partial class Home : ContentPage
@@ -51,5 +52,18 @@ public partial class Home : ContentPage
     {
         await DisplayAlert("Logout", "", "OK");
         MenuLateral.IsVisible = false;
+    }
+
+    private async void Button_Clicked_VerTreinos(object sender, EventArgs e)
+    {
+        try
+        {
+            await Navigation.PushAsync(new Visualizar_TreinoPage1());
+        }
+        catch
+        {
+            await DisplayAlert("Ops!", "Não foi possível voltar. Tente novamente", "Ok");
+
+        }
     }
 }

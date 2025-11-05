@@ -133,5 +133,72 @@ namespace atualizaExercicio.Services
                 return false;
             }
         }
+
+        public async Task<List<TreinoCardViewModel>> BuscarTreinosCardAsync(int usuarioId)
+        {
+            var treinos = new List<TreinoCardViewModel>();
+
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string query = @"
+                SELECT 
+                    t.idTreino,
+                    t.tituloTreino,
+                    COALESCE(rt.data, t.dataInicio) as DataDisplay,
+                    COALESCE(gm.nomeGrupo, 'Geral') as GrupoMuscularPrincipal,
+                    COALESCE(e.imagem, 'placeholder_exercicio.png') as ImagemExercicio,
+                    rt.idProgresso IS NOT NULL as TemRegistro
+                FROM Treino t
+                LEFT JOIN (
+                    SELECT registro_Treino, MAX(data) as data 
+                    FROM RegistroTreino 
+                    GROUP BY registro_Treino
+                ) ultimo_registro ON t.idTreino = ultimo_registro.registro_Treino
+                LEFT JOIN RegistroTreino rt ON t.idTreino = rt.registro_Treino 
+                    AND rt.data = ultimo_registro.data
+                LEFT JOIN TreinoExercicio te ON t.idTreino = te.idTreino
+                LEFT JOIN Exercicio e ON te.idExercicio = e.idExercicio
+                LEFT JOIN GrupoMuscular gm ON e.exercicioGrupMuscular = gm.idGrupoMuscular
+                WHERE t.usuario_Treino = @UsuarioId
+                GROUP BY t.idTreino
+                ORDER BY DataDisplay ASC, t.idTreino ASC";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var treino = new TreinoCardViewModel
+                                {
+                                    TreinoId = reader.GetInt32("idTreino"),
+                                    Titulo = reader.GetString("tituloTreino"),
+                                    DataRegistro = reader.GetDateTime("DataDisplay").ToString("dd/MM/yyyy"),
+                                    GrupoMuscularPrincipal = reader.GetString("GrupoMuscularPrincipal"),
+                                    ImagemPrimeiroExercicio = reader.GetString("ImagemExercicio"),
+                                    TemRegistro = reader.GetBoolean("TemRegistro")
+                                };
+                                treinos.Add(treino);
+                            }
+                        }
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine($"✅ Encontrados {treinos.Count} treinos para o usuário {usuarioId}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao buscar treinos: {ex.Message}");
+            }
+
+            return treinos;
+        }
+
     }
 }

@@ -53,18 +53,18 @@
 
                 <!-- Menu hamburguer -->
                 <ImageButton Source="menu_burguer_34dp.png"                   
-                   WidthRequest="25"
-                   HeightRequest="25"
-                   BackgroundColor="Transparent"
-                   Grid.Column="0"
-                   Clicked="OnMenuClicked"/>
+                             WidthRequest="25"
+                             HeightRequest="25"
+                             BackgroundColor="Transparent"
+                             Grid.Column="0"
+                             Clicked="OnMenuClicked"/>
                 <!-- Logo -->
                 <Label Text="MoveTech"
-                 TextColor="Lavender"
-                 FontSize="20"
-                 FontFamily="QuicksandMedium"
-                 VerticalOptions="Center"
-                 Grid.Column="2"/>
+                       TextColor="Lavender"
+                       FontSize="20"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="2"/>
             </Grid>
             
             <ScrollView Grid.Row="1">
@@ -75,48 +75,47 @@
                     <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center" ColumnSpacing="8" Padding="0">
                         <!-- optional left icon -->
                         <SearchBar Grid.Column="1"
-                           Placeholder="Buscar atividade"
-                           PlaceholderColor="#CABAEB"
-                           BackgroundColor="#2C2C2C"
-                           TextColor="#CABAEB"
-                           FontFamily="QuicksandRegular"
-                           HeightRequest="45"
-                           VerticalOptions="Center"/>
+                                   Placeholder="Buscar atividade"
+                                   PlaceholderColor="#CABAEB"
+                                   BackgroundColor="#2C2C2C"
+                                   TextColor="#CABAEB"
+                                   FontFamily="QuicksandRegular"
+                                   HeightRequest="45"
+                                   VerticalOptions="Center"/>
 
                         <!-- Botão "Novo Treino" simulado com Frame -->
                         <Grid Grid.Column="2"
-                      WidthRequest="58"
-                      HeightRequest="58"
-                      HorizontalOptions="End"
-                      VerticalOptions="Center"
-                      Margin="5,0,0,0">
+                              WidthRequest="58"
+                              HeightRequest="58"
+                              HorizontalOptions="End"
+                              VerticalOptions="Center"
+                              Margin="5,0,0,0">
 
                             <!-- Botão real — irá receber o clique -->
-                            <Button 
-                    BackgroundColor="#1C1C1E"
-                    BorderColor="#4D2D8C"
-                    CornerRadius="16"
-                    Padding="0"
-                    Command="{Binding NovoTreinoCommand}"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill"
-                    Clicked="novoTreino_Clicked"/>
+                            <Button BackgroundColor="#1C1C1E"
+                                    BorderColor="#4D2D8C"
+                                    CornerRadius="16"
+                                    Padding="0"
+                                    Command="{Binding NovoTreinoCommand}"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    Clicked="novoTreino_Clicked"/>
 
                             <!-- Visual sobreposto (não intercepta toques) -->
                             <VerticalStackLayout Spacing="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         IsVisible="True">
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 IsVisible="True">
                                 <Label Text="+"
-                               FontSize="30"
-                               FontFamily="QuicksandSemibold"
-                               TextColor="#4D2D8C"
-                               HorizontalOptions="Center"/>
+                                       FontSize="30"
+                                       FontFamily="QuicksandSemibold"
+                                       TextColor="#4D2D8C"
+                                       HorizontalOptions="Center"/>
                                 <Label Text="Novo Treino"
-                               FontSize="8"
-                               FontFamily="QuicksandRegular"
-                               TextColor="White"
-                               HorizontalOptions="Center"/>
+                                       FontSize="8"
+                                       FontFamily="QuicksandRegular"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Grid>
 
@@ -124,60 +123,60 @@
 
                     <!-- Próximo Treino -->
                     <Label Text="Próximo Treino:" 
-               Style="{StaticResource SubLabel}" 
-               FontSize="16" />
+                           Style="{StaticResource SubLabel}" 
+                           FontSize="16" />
 
                     <Frame CornerRadius="12"
-               Padding="12"
-               HasShadow="False"
-               BackgroundColor="#4C795CB3">
+                           Padding="12"
+                           HasShadow="False"
+                           BackgroundColor="#4C795CB3">
                         <!-- alfa via hex para só o fundo -->
                         <Grid ColumnDefinitions="*,120"
-                  RowDefinitions="Auto,Auto,Auto,Auto"
-                  ColumnSpacing="10">
+                              RowDefinitions="Auto,Auto,Auto,Auto"
+                              ColumnSpacing="10">
 
                             <!-- Coluna esquerda: informações -->
                             <StackLayout Grid.Column="0" Grid.Row="0" Spacing="6">
                                 <Label Text="Treino: Título do Treino"
-                           Style="{StaticResource TitleLabel}"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource TitleLabel}"
+                                       FontSize="14"
+                                       Margin="10"/>
 
                                 <Label Text="Data: 29/08/2025"
-                           Style="{StaticResource SmallLabel}"
-                           TextColor="#FFFFFF"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       TextColor="#FFFFFF"
+                                       FontSize="14"
+                                       Margin="10"/>
 
                                 <Label Text="Tempo: 1h35"
-                           Style="{StaticResource SmallLabel}"
-                           TextColor="#FFFFFF"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       TextColor="#FFFFFF"
+                                       FontSize="14"
+                                       Margin="10"/>
                             </StackLayout>
 
                             <!-- Coluna direita: grupo muscular e imagem -->
                             <VerticalStackLayout Grid.Column="1"
-                                     Grid.Row="0"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="Center"
-                                     Spacing="6">
+                                                 Grid.Row="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 Spacing="6">
                                 <Label Text="Grupo Muscular"
-                           Style="{StaticResource SmallLabel}"
-                           HorizontalTextAlignment="Center"
-                           TextColor="#FFFFFF"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="#FFFFFF"/>
 
                                 <Label Text="Membros Inferiores"
-                           Style="{StaticResource SmallLabel}"
-                           HorizontalTextAlignment="Center"
-                           TextColor="#FFFFFF"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="#FFFFFF"/>
 
                                 <Frame WidthRequest="84"
-                           HeightRequest="84"
-                           CornerRadius="42"
-                           Padding="6"
-                           HasShadow="False"
-                           BackgroundColor="#FFFFFF">
+                                       HeightRequest="84"
+                                       CornerRadius="42"
+                                       Padding="6"
+                                       HasShadow="False"
+                                       BackgroundColor="#FFFFFF">
                                     <Image Source="https://gifdotreino.com/Exercicios/Pernas/Agachamento%20no%20Smith.gif"
                                Aspect="AspectFit"/>
                                 </Frame>
@@ -191,78 +190,78 @@
 
                             <!-- Botão ocupando toda a base -->
                             <Button Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Text="Iniciar"
-                        CornerRadius="20"
-                        HeightRequest="44"
-                        Padding="10,0"
-                        BackgroundColor="#4E2CA0"
-                        TextColor="White"
-                        FontFamily="QuicksandSemibold"
-                        FontSize="14"
-                        HorizontalOptions="Fill"
-                        VerticalOptions="End"
-                        Margin="0,10,0,0"/>
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Text="Iniciar"
+                                    CornerRadius="20"
+                                    HeightRequest="44"
+                                    Padding="10,0"
+                                    BackgroundColor="#4E2CA0"
+                                    TextColor="White"
+                                    FontFamily="QuicksandSemibold"
+                                    FontSize="14"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="End"
+                                    Margin="0,10,0,0"/>
                         </Grid>
                     </Frame>
 
                     <!-- Recent Activity -->
                     <Label Text="O que você fez recentemente:" 
-               Style="{StaticResource SubLabel}" 
-               FontSize="16" />
+                           Style="{StaticResource SubLabel}" 
+                           FontSize="16" />
 
                     <Frame CornerRadius="12"
-               Padding="12"
-               HasShadow="False"
-               BackgroundColor="#4C795CB3">
+                           Padding="12"
+                           HasShadow="False"
+                           BackgroundColor="#4C795CB3">
                         <!-- alfa via hex para só o fundo -->
                         <Grid ColumnDefinitions="*,120"
-                  RowDefinitions="Auto,Auto,Auto,Auto"
-                  ColumnSpacing="10">
+                              RowDefinitions="Auto,Auto,Auto,Auto"
+                              ColumnSpacing="10">
 
                             <!-- Coluna esquerda: informações -->
                             <StackLayout Grid.Column="0" Grid.Row="0" Spacing="6">
                                 <Label Text="Treino: Título do Treino"
-                           Style="{StaticResource TitleLabel}"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource TitleLabel}"
+                                       FontSize="14"
+                                       Margin="10"/>
 
                                 <Label Text="Data: 29/08/2025"
-                           Style="{StaticResource SmallLabel}"
-                           TextColor="#FFFFFF"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       TextColor="#FFFFFF"
+                                       FontSize="14"
+                                       Margin="10"/>
 
                                 <Label Text="Tempo: 1h35"
-                           Style="{StaticResource SmallLabel}"
-                           TextColor="#FFFFFF"
-                           FontSize="14"
-                           Margin="10"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       TextColor="#FFFFFF"
+                                       FontSize="14"
+                                       Margin="10"/>
                             </StackLayout>
 
                             <!-- Coluna direita: grupo muscular e imagem -->
                             <VerticalStackLayout Grid.Column="1"
-                         Grid.Row="0"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         Spacing="6">
+                                                 Grid.Row="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 Spacing="6">
                                 <Label Text="Grupo Muscular"
-                           Style="{StaticResource SmallLabel}"
-                           HorizontalTextAlignment="Center"
-                           TextColor="#FFFFFF"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="#FFFFFF"/>
 
                                 <Label Text="Membros Inferiores"
-                           Style="{StaticResource SmallLabel}"
-                           HorizontalTextAlignment="Center"
-                           TextColor="#FFFFFF"/>
+                                       Style="{StaticResource SmallLabel}"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="#FFFFFF"/>
 
                                 <Frame WidthRequest="84"
-                           HeightRequest="84"
-                           CornerRadius="42"
-                           Padding="6"
-                           HasShadow="False"
-                           BackgroundColor="#FFFFFF">
+                                       HeightRequest="84"
+                                       CornerRadius="42"
+                                       Padding="6"
+                                       HasShadow="False"
+                                       BackgroundColor="#FFFFFF">
                                     <Image Source="https://gifdotreino.com/Exercicios/Pernas/Agachamento%20no%20Smith.gif"
                                Aspect="AspectFit"/>
                                 </Frame>
@@ -276,58 +275,59 @@
 
                             <!-- Botão ocupando toda a base -->
                             <Button Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Text="Iniciar"
-                        CornerRadius="20"
-                        HeightRequest="44"
-                        Padding="10,0"
-                        BackgroundColor="#4E2CA0"
-                        TextColor="White"
-                        FontFamily="QuicksandSemibold"
-                        FontSize="14"
-                        HorizontalOptions="Fill"
-                        VerticalOptions="End"
-                        Margin="0,10,0,0"/>
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Text="Iniciar"
+                                    CornerRadius="20"
+                                    HeightRequest="44"
+                                    Padding="10,0"
+                                    BackgroundColor="#4E2CA0"
+                                    TextColor="White"
+                                    FontFamily="QuicksandSemibold"
+                                    FontSize="14"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="End"
+                                    Margin="0,10,0,0"/>
                         </Grid>
                     </Frame>
 
                     <Frame CornerRadius="16"
-               Padding="0"
-               HasShadow="False"
-               BackgroundColor="{StaticResource CardDark}">
+                           Padding="0"
+                           HasShadow="False"
+                           BackgroundColor="{StaticResource CardDark}">
                         <Grid HeightRequest="145" RowDefinitions="Auto,*" ColumnDefinitions="* , Auto">
                             <!-- Imagem de fundo que preenche todo o Grid -->
                             <Image Source="banner.jpg"
-                       Aspect="AspectFill"
-                       Opacity="1"
-                       Grid.RowSpan="2"
-                       Grid.ColumnSpan="2"/>
+                                   Aspect="AspectFill"
+                                   Opacity="1"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2"/>
 
                             <!-- Título no topo, centralizado -->
                             <Label Grid.Row="0" 
-                       Grid.Column="0" 
-                       Grid.ColumnSpan="2"
-                       Text="Mantenha seus treinos atualizados"
-                       FontFamily="QuicksandRegular"
-                       FontSize="16"
-                       TextColor="#161823"
-                       HorizontalOptions="End"
-                       VerticalOptions="Start"
-                       Margin="12,8,12,0"/>
+                                   Grid.Column="0" 
+                                   Grid.ColumnSpan="2"
+                                   Text="Mantenha seus treinos atualizados"
+                                   FontFamily="QuicksandRegular"
+                                   FontSize="16"
+                                   TextColor="#161823"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Start"
+                                   Margin="12,8,12,0"/>
 
                             <!-- Botão pílula à direita, sobre a imagem -->
                             <Button Grid.Row="1" Grid.Column="1"
-                        Text="Clique aqui"
-                        CornerRadius="20"
-                        BackgroundColor="{StaticResource AccentDark}"
-                        TextColor="White"
-                        FontFamily="QuicksandRegular"
-                        FontSize="14"
-                        Padding="18,8"
-                        HorizontalOptions="End"
-                        VerticalOptions="Center"
-                        Margin="0,0,16,12"/>
+                                    Text="Clique aqui"
+                                    CornerRadius="20"
+                                    BackgroundColor="{StaticResource AccentDark}"
+                                    TextColor="White"
+                                    FontFamily="QuicksandRegular"
+                                    FontSize="14"
+                                    Padding="18,8"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    Margin="0,0,16,12"
+                                    Clicked="Button_Clicked_VerTreinos"/>
                         </Grid>
                     </Frame>
 

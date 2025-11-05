@@ -59,22 +59,16 @@
 	<ItemGroup>
 	  <AndroidResource Remove="Model\**" />
 	  <AndroidResource Remove="Views\NovaPasta1\**" />
-	  <AndroidResource Remove="Views\NovaPasta\**" />
 	  <Compile Remove="Model\**" />
 	  <Compile Remove="Views\NovaPasta1\**" />
-	  <Compile Remove="Views\NovaPasta\**" />
 	  <EmbeddedResource Remove="Model\**" />
 	  <EmbeddedResource Remove="Views\NovaPasta1\**" />
-	  <EmbeddedResource Remove="Views\NovaPasta\**" />
 	  <MauiCss Remove="Model\**" />
 	  <MauiCss Remove="Views\NovaPasta1\**" />
-	  <MauiCss Remove="Views\NovaPasta\**" />
 	  <MauiXaml Remove="Model\**" />
 	  <MauiXaml Remove="Views\NovaPasta1\**" />
-	  <MauiXaml Remove="Views\NovaPasta\**" />
 	  <None Remove="Model\**" />
 	  <None Remove="Views\NovaPasta1\**" />
-	  <None Remove="Views\NovaPasta\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +78,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="MySql.Data" Version="9.5.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\VisualizarTreino\Visualizar_TreinoPage1.xaml.cs">
+	    <DependentUpon>Visualizar_TreinoPage1.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -112,6 +112,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Login\LoginPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\VisualizarTreino\Visualizar_TreinoPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
