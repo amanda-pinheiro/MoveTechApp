@@ -117,6 +117,12 @@
 	  <MauiXaml Update="Views\VisualizarTreino\Visualizar_TreinoPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\VisualizarTreino\Visualizar_TreinoPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\VisualizarTreino\Visualizar_TreinoPage3.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

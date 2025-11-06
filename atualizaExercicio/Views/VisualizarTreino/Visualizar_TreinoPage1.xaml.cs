@@ -231,16 +231,12 @@ namespace atualizaExercicio.Views.VisualizarTreino
         {
             try
             {
-                // ✅ FUTURO: Navegar para tela de execução do treino
-                await DisplayAlert("Iniciar Treino",
-                    $"Iniciando: {treino.Titulo}\nID: {treino.TreinoId}", "OK");
-
-                // Exemplo futuro:
-                // await Navigation.PushAsync(new ExecutarTreinoPage(treino.TreinoId));
+                // ✅ Navegar para tela de detalhes do treino
+                await Navigation.PushAsync(new Visualizar_TreinoPage2(treino.TreinoId));
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Erro", $"Erro ao iniciar treino: {ex.Message}", "OK");
+                await DisplayAlert("Erro", $"Erro ao abrir treino: {ex.Message}", "OK");
             }
         }
 

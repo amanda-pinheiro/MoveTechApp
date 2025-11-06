@@ -12,6 +12,10 @@ namespace atualizaExercicio.Services
 
         Task<List<TreinoCardViewModel>> BuscarTreinosCardAsync(int usuarioId);
 
+        Task<TreinoDetalhesViewModel> BuscarDetalhesTreinoAsync(int treinoId);
+
+        Task<bool> RegistrarTreinoConcluidoAsync(RegistroTreinoData registroData);
+
     }
 
 }

@@ -148,24 +148,22 @@ namespace atualizaExercicio.Services
                 SELECT 
                     t.idTreino,
                     t.tituloTreino,
-                    COALESCE(rt.data, t.dataInicio) as DataDisplay,
+                    COALESCE(
+                        (SELECT MAX(rt2.data) 
+                         FROM RegistroTreino rt2 
+                         WHERE rt2.registro_Treino = t.idTreino),
+                        t.dataInicio
+                    ) as DataDisplay,
                     COALESCE(gm.nomeGrupo, 'Geral') as GrupoMuscularPrincipal,
                     COALESCE(e.imagem, 'placeholder_exercicio.png') as ImagemExercicio,
-                    rt.idProgresso IS NOT NULL as TemRegistro
+                    (SELECT COUNT(*) FROM RegistroTreino rt WHERE rt.registro_Treino = t.idTreino) > 0 as TemRegistro
                 FROM Treino t
-                LEFT JOIN (
-                    SELECT registro_Treino, MAX(data) as data 
-                    FROM RegistroTreino 
-                    GROUP BY registro_Treino
-                ) ultimo_registro ON t.idTreino = ultimo_registro.registro_Treino
-                LEFT JOIN RegistroTreino rt ON t.idTreino = rt.registro_Treino 
-                    AND rt.data = ultimo_registro.data
                 LEFT JOIN TreinoExercicio te ON t.idTreino = te.idTreino
                 LEFT JOIN Exercicio e ON te.idExercicio = e.idExercicio
                 LEFT JOIN GrupoMuscular gm ON e.exercicioGrupMuscular = gm.idGrupoMuscular
                 WHERE t.usuario_Treino = @UsuarioId
                 GROUP BY t.idTreino
-                ORDER BY DataDisplay ASC, t.idTreino ASC";
+                ORDER BY DataDisplay DESC, t.idTreino DESC";
 
                     using (var cmd = new MySqlCommand(query, conn))
                     {
@@ -175,11 +173,12 @@ namespace atualizaExercicio.Services
                         {
                             while (await reader.ReadAsync())
                             {
+                                var dataDisplay = reader.GetDateTime("DataDisplay");
                                 var treino = new TreinoCardViewModel
                                 {
                                     TreinoId = reader.GetInt32("idTreino"),
                                     Titulo = reader.GetString("tituloTreino"),
-                                    DataRegistro = reader.GetDateTime("DataDisplay").ToString("dd/MM/yyyy"),
+                                    DataRegistro = dataDisplay.ToString("dd/MM/yyyy"),
                                     GrupoMuscularPrincipal = reader.GetString("GrupoMuscularPrincipal"),
                                     ImagemPrimeiroExercicio = reader.GetString("ImagemExercicio"),
                                     TemRegistro = reader.GetBoolean("TemRegistro")
@@ -198,6 +197,135 @@ namespace atualizaExercicio.Services
             }
 
             return treinos;
+        }
+
+        public async Task<TreinoDetalhesViewModel> BuscarDetalhesTreinoAsync(int treinoId)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string query = @"
+                SELECT 
+                    t.idTreino,
+                    t.tituloTreino,
+                    t.objetivo,
+                    t.dataInicio,
+                    t.dataFim,
+                    te.idTreinoExercicio,
+                    te.serie,
+                    te.reps,
+                    te.intervalo,
+                    te.carga,
+                    e.idExercicio,
+                    e.nomeExer,
+                    e.imagem as imagemOriginal
+                FROM Treino t
+                INNER JOIN TreinoExercicio te ON t.idTreino = te.idTreino
+                INNER JOIN Exercicio e ON te.idExercicio = e.idExercicio
+                WHERE t.idTreino = @TreinoId
+                ORDER BY te.idTreinoExercicio";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TreinoId", treinoId);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            var treinoDetalhes = new TreinoDetalhesViewModel();
+                            bool primeiroRegistro = true;
+
+                            while (await reader.ReadAsync())
+                            {
+                                if (primeiroRegistro)
+                                {
+                                    treinoDetalhes.TreinoId = reader.GetInt32("idTreino");
+                                    treinoDetalhes.TituloTreino = reader.GetString("tituloTreino");
+                                    treinoDetalhes.Objetivo = reader.GetString("objetivo");
+
+                                    if (!reader.IsDBNull(reader.GetOrdinal("dataInicio")))
+                                        treinoDetalhes.DataInicio = reader.GetDateTime("dataInicio");
+
+                                    if (!reader.IsDBNull(reader.GetOrdinal("dataFim")))
+                                        treinoDetalhes.DataFim = reader.GetDateTime("dataFim");
+
+                                    primeiroRegistro = false;
+                                }
+
+                                // ✅ TRATAMENTO DA IMAGEM: Se estiver vazia, usa placeholder
+                                string imagemExercicio = "placeholder_exercicio.png";
+                                if (!reader.IsDBNull(reader.GetOrdinal("imagemOriginal")))
+                                {
+                                    var imagemOriginal = reader.GetString("imagemOriginal");
+                                    if (!string.IsNullOrEmpty(imagemOriginal) && imagemOriginal != "placeholder_exercicio.png")
+                                    {
+                                        imagemExercicio = imagemOriginal;
+                                    }
+                                }
+
+                                var exercicio = new ExercicioTreinoViewModel
+                                {
+                                    TreinoExercicioId = reader.GetInt32("idTreinoExercicio"),
+                                    ExercicioId = reader.GetInt32("idExercicio"),
+                                    NomeExercicio = reader.GetString("nomeExer"),
+                                    ImagemExercicio = imagemExercicio, // ✅ Já tratado
+                                    Serie = reader.IsDBNull(reader.GetOrdinal("serie")) ? 3 : reader.GetInt32("serie"),
+                                    Reps = reader.IsDBNull(reader.GetOrdinal("reps")) ? 12 : reader.GetInt32("reps"),
+                                    Carga = reader.IsDBNull(reader.GetOrdinal("carga")) ? 0 : reader.GetDouble("carga"),
+                                    Intervalo = reader.IsDBNull(reader.GetOrdinal("intervalo"))
+                                        ? TimeSpan.FromSeconds(60)
+                                        : TimeSpan.FromSeconds(reader.GetInt32("intervalo"))
+                                };
+
+                                treinoDetalhes.Exercicios.Add(exercicio);
+                            }
+
+                            System.Diagnostics.Debug.WriteLine($"✅ Encontrados {treinoDetalhes.Exercicios.Count} exercícios para o treino {treinoId}");
+                            return treinoDetalhes;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao buscar detalhes do treino: {ex.Message}");
+                return new TreinoDetalhesViewModel();
+            }
+        }
+
+        public async Task<bool> RegistrarTreinoConcluidoAsync(RegistroTreinoData registroData)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string query = @"
+                INSERT INTO RegistroTreino (data, carga, registro_usuario, registro_Treino)
+                VALUES (@Data, @Carga, @UsuarioId, @TreinoId)";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Data", registroData.Data);
+                        cmd.Parameters.AddWithValue("@Carga", registroData.CargaTotal);
+                        cmd.Parameters.AddWithValue("@UsuarioId", registroData.UsuarioId);
+                        cmd.Parameters.AddWithValue("@TreinoId", registroData.TreinoId);
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        System.Diagnostics.Debug.WriteLine($"✅ Registro salvo: Treino {registroData.TreinoId} concluído em {registroData.Data}");
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao registrar treino: {ex.Message}");
+                return false;
+            }
         }
 
     }

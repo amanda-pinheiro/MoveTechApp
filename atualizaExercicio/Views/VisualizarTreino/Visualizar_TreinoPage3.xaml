@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.VisualizarTreino.Visualizar_TreinoPage3"
+             Title="Visualizar_TreinoPage3">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Text Styles -->
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="QuicksandRegular"/>
+            </Style>
+
+            <Style x:Key="SubLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="TextColor" Value="#BBBBBB"/>
+                <Setter Property="FontFamily" Value="QuicksandRegular"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <Grid RowDefinitions="Auto,Auto,*,Auto"
+         AbsoluteLayout.LayoutBounds="0,0,1,1"
+         AbsoluteLayout.LayoutFlags="All">
+
+            <!-- Header -->
+            <Grid Grid.Row="0"
+                BackgroundColor="#0F0F10" 
+                Padding="15,10" 
+                HeightRequest="70"                
+                VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Menu hamburguer -->
+                <ImageButton Source="menu_burguer_34dp.png"
+                          Margin="0,-10,0,0"
+                          WidthRequest="25"
+                          HeightRequest="25"
+                          BackgroundColor="Transparent"
+                          Grid.Column="0"
+                          Clicked="MenuButton_Clicked"/>
+
+                <Label Text="MoveTech"
+                        TextColor="Lavender"
+                        FontSize="20"
+                        FontFamily="QuicksandMedium"
+                        VerticalOptions="Center"
+                        Grid.Column="2"/>
+            </Grid>
+
+            <!-- Título -->
+            <VerticalStackLayout Grid.Row="1"
+                  HorizontalOptions="Center"
+                  Margin="0,0,0,10">
+                <Label x:Name="TituloLabel"
+                       Text="Visualizar Exercício" 
+                       TextColor="Lavender"
+                       FontSize="17"
+                       FontFamily="QuicksandSemibold"             
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Conteúdo Central -->
+            <Frame Grid.Row="2" 
+                 Margin="10,0,10,0"
+                 BackgroundColor="#4A795CB3"
+                 CornerRadius="12"
+                 HasShadow="False"
+                 MinimumHeightRequest="360">
+
+                <VerticalStackLayout>
+                    <!-- Cabeçalho exercício -->
+                    <Grid HeightRequest="20">
+                        <Label x:Name="NomeExercicioLabel"
+                             Text="Exercício" 
+                             FontSize="17"
+                             TextColor="White"
+                             FontFamily="QuicksandRegular"   
+                             HorizontalOptions="Start"                        
+                             Margin="10,0,0,0"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="2" Color="#E6E6FA" Margin="-10,5"/>
+
+                    <!-- Imagem GIF -->
+                    <Frame CornerRadius="15"
+                       Padding="0"
+                       Margin="0,10,0,0"
+                       HasShadow="False"
+                       IsClippedToBounds="True"                      
+                       BackgroundColor="Transparent"
+                       BorderColor="Transparent">
+                        <!-- WebView para GIF -->
+                        <WebView x:Name="GifViewer"
+                                 MinimumHeightRequest="300"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"
+                                 BackgroundColor="Transparent"/>
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botão OK -->
+            <VerticalStackLayout Grid.Row="3"
+                     HorizontalOptions="Center"
+                     Margin="0,10,0,20">
+                <Button Text="OK"
+                         Clicked="Voltar_Clicked"
+                         BackgroundColor="#4D2D8C"
+                         TextColor="White"
+                         FontSize="14"
+                         FontFamily="QuicksandSemibold"
+                         CornerRadius="20"
+                         WidthRequest="327"
+                         HeightRequest="40"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Overlay do fundo -->
+        <BoxView x:Name="OverlayFundo"
+             BackgroundColor="Black"
+             Opacity="0.01"
+             IsVisible="False"
+             AbsoluteLayout.LayoutBounds="0,0,1,1"
+             AbsoluteLayout.LayoutFlags="All">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OverlayFundo_Tapped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Menu lateral -->
+        <Frame x:Name="MenuLateral"
+            IsVisible="False"
+            Padding="0" 
+            Margin="0"
+            WidthRequest="80"    
+            TranslationX="22"
+            TranslationY="50"
+            HasShadow="False"
+            BackgroundColor="Transparent"    
+            BorderColor="Transparent"
+            VerticalOptions="Start"
+            HorizontalOptions="Start">
+
+            <VerticalStackLayout Spacing="0">
+                <Button Text="Sobre" Clicked="Sobre_Clicked"
+                     BackgroundColor="Grey"
+                     FontSize="12"
+                     CornerRadius="0"/>
+                <Button Text="Contato" Clicked="Contato_Clicked"
+                     BackgroundColor="Grey"
+                     FontSize="12"
+                     CornerRadius="0"/>
+                <Button Text="Logout" Clicked="Logout_Clicked"
+                    BackgroundColor="Grey"
+                    FontSize="12"
+                    CornerRadius="0"/>
+            </VerticalStackLayout>
+        </Frame>
+    </AbsoluteLayout>
+</ContentPage>
