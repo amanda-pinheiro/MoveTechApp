@@ -1,4 +1,5 @@
-﻿using atualizaExercicio.Models;
+﻿using atualizaExercicio.Controls;
+using atualizaExercicio.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -16,6 +17,8 @@ namespace atualizaExercicio.Views.CriarTreino
         public CriarTreinoPage2(Exercicio exercicio, List<Exercicio> exerciciosSelecionados, Action<List<ExercicioParametros>> onParametrosSalvos)
         {
             InitializeComponent();
+            // Passa a referência da página para o ContentView
+            menuHamburguer.ParentPage = this;
 
             _exercicio = exercicio;
             _exerciciosSelecionados = exerciciosSelecionados;
@@ -106,44 +109,6 @@ namespace atualizaExercicio.Views.CriarTreino
                 "2 min" => TimeSpan.FromMinutes(2),
                 _ => TimeSpan.FromSeconds(60)
             };
-        }
-
-        // ===== MENU HAMBURGUER =====
-        private void OnMenuClicked(object sender, EventArgs e)
-        {
-            bool exibir = !MenuLateral.IsVisible;
-            MenuLateral.IsVisible = exibir;
-            OverlayFundo.IsVisible = exibir;
-        }
-
-        //Fecha o menu hamburguer se o usuário clicar fora
-        private void OnOverlayTapped(object sender, EventArgs e)
-        {
-            MenuLateral.IsVisible = false;
-            OverlayFundo.IsVisible = false;
-        }
-
-        private async void Home_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Home", "Você clicou em Home", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Sobre_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Contato_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-            MenuLateral.IsVisible = false;
-        }
-        private async void Logout_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Logout", "", "OK");
-            MenuLateral.IsVisible = false;
         }
 
         // ✅ BOTÃO MENU (VOLTAR)

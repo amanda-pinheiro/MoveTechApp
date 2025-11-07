@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Controls.MenuHamburguer">
+
+    <Grid>
+        <!-- Header com botão hamburguer e logo -->
+        <Grid x:Name="HeaderGrid"
+              Padding="15,10" 
+              HeightRequest="70"
+              BackgroundColor="#010101"
+              VerticalOptions="Start"
+              HorizontalOptions="FillAndExpand">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Botão hamburguer -->
+            <ImageButton Grid.Column="0"
+                         Source="menu_burguer_34dp.png"                   
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         BackgroundColor="Transparent"
+                         Clicked="OnMenuClicked"
+                         HorizontalOptions="Start"/>
+
+            <Grid Grid.Column="1"  ></Grid>
+            
+            <!-- Logo -->
+            <Label Grid.Column="2"
+                   Text="MoveTech"
+                   TextColor="Lavender"
+                   FontSize="20"
+                   FontFamily="QuicksandMedium"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogoTapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- Overlay de fundo (invisível por padrão) -->
+        <BoxView x:Name="OverlayFundo"
+                 BackgroundColor="Black"
+                 Opacity="0."
+                 IsVisible="False"
+                 InputTransparent="False">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnOverlayTapped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Menu lateral -->       
+        <!-- escondido à esquerda -->
+        <Frame x:Name="MenuLateral"
+               IsVisible="False"
+               Padding="0"
+               Margin="20,50,0,0"
+               WidthRequest="80" 
+               HeightRequest="100"
+               TranslationX="-200"
+               CornerRadius="5"
+               HasShadow="False"
+               BackgroundColor="White"
+               VerticalOptions="Start"
+               HorizontalOptions="Start">
+
+            <VerticalStackLayout Spacing="0">
+                <Button Text="Sobre" Clicked="Sobre_Clicked"
+                        BackgroundColor="Gray"
+                        Opacity="0.9"
+                        FontSize="14"
+                        CornerRadius="0"
+                        />
+                <Button Text="Contato" Clicked="Contato_Clicked"
+                        BackgroundColor="Gray"
+                        Opacity="0.9"
+                        FontSize="14"
+                        CornerRadius="0"
+                       />
+                <Button Text="Logout" Clicked="Logout_Clicked"
+                        BackgroundColor="Gray"
+                        Opacity="0.9"
+                        FontSize="14"
+                        CornerRadius="0"
+                     />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+</ContentView>

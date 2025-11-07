@@ -1,4 +1,5 @@
-﻿using atualizaExercicio.Models;
+﻿using atualizaExercicio.Controls;
+using atualizaExercicio.Models;
 using atualizaExercicio.Services;
 using atualizaExercicio.Views.VisualizarTreino;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace atualizaExercicio.Views.CriarTreino
         public CriarTreinoPage1()
         {
             InitializeComponent();
+
+            // Passa a referência da página para o ContentView
+            menuHamburguer.ParentPage = this;
 
             // ✅ BD REAL para buscar exercícios
             _treinoService = new MySqlTreinoService();
@@ -462,45 +466,7 @@ namespace atualizaExercicio.Views.CriarTreino
                 System.Diagnostics.Debug.WriteLine($"Erro na busca: {ex.Message}");
             }
         }
-
-        // ===== MENU HAMBURGUER =====
-        private void OnMenuClicked(object sender, EventArgs e)
-        {
-            bool exibir = !MenuLateral.IsVisible;
-            MenuLateral.IsVisible = exibir;
-            OverlayFundo.IsVisible = exibir;
-        }
-
-        //Fecha o menu hamburguer se o usuário clicar fora
-        private void OnOverlayTapped(object sender, EventArgs e)
-        {
-            MenuLateral.IsVisible = false;
-            OverlayFundo.IsVisible = false;
-        }
-
-        private async void Home_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Home", "Você clicou em Home", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Sobre_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Contato_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-            MenuLateral.IsVisible = false;
-        }
-        private async void Logout_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Logout", "", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
+         
         private async void MenuButton_Clicked(object? sender, EventArgs e)
         {
             await Navigation.PopAsync();

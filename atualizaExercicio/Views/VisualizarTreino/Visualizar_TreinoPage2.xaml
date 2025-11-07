@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:controls="clr-namespace:atualizaExercicio.Controls"
              x:Class="atualizaExercicio.Views.VisualizarTreino.Visualizar_TreinoPage2"
              Title="Visualizar_TreinoPage2"
-             BackgroundColor="#0F0F10">
+             BackgroundColor="#010101">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -25,73 +26,53 @@
                 <Setter Property="TextColor" Value="#9E9E9E"/>
                 <Setter Property="FontFamily" Value="QuicksandLight"/>
             </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="7"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CharacterSpacing" Value="0"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <AbsoluteLayout>
-        <Grid RowDefinitions="Auto,Auto,*,Auto"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
 
             <!-- Header -->
-            <Grid Grid.Row="0"
-                  BackgroundColor="#0F0F10" 
-                  Padding="15,10" 
-                  HeightRequest="70"                   
-                  VerticalOptions="Start">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Menu hamburguer -->
-                <ImageButton Source="menu_burguer_34dp.png"
-                             Margin="0,0,0,0"
-                             WidthRequest="25"
-                             HeightRequest="25"
-                             BackgroundColor="Transparent"
-                             Grid.Column="0"
-                             Clicked="MenuButton_Clicked"/>
-
-                <!-- Logo -->
-                <Label Text="MoveTech"
-                       TextColor="Lavender"
-                       FontSize="20"
-                       FontFamily="QuicksandMedium"
-                       VerticalOptions="Center"
-                       Grid.Column="2"/>
-            </Grid>
-
-            <!-- Título do Treino -->
-            <VerticalStackLayout Grid.Row="1"
+        <Grid Grid.Row="0" HeightRequest="70"></Grid>
+       
+        <!-- Título do Treino Grid.Row="1" -->
+            <VerticalStackLayout 
                      HorizontalOptions="Center"
-                     Margin="0,0,0,10">
+                     Margin="0,70,0,10"
+                     HeightRequest="20" 
+                     VerticalOptions="Start">                
                 <Label x:Name="TituloTreinoLabel"
                        Text="Treino" 
                        TextColor="Lavender"
-                       FontSize="18"
+                       FontSize="17"
                        FontFamily="QuicksandSemibold"             
                        HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
-            <!-- Conteúdo - Lista de Exercícios -->
-            <Frame Grid.Row="2" 
-                Margin="10,0,10,0"
+        <!-- Conteúdo - Lista de Exercícios Grid.Row="2" Margin="0,-190,0,0"-->
+        
+            <Frame Grid.Row="1"
+                   Margin="20,20,20,0"
                 BackgroundColor="#4A795CB3"
                 CornerRadius="12"
-                HasShadow="False">
+                HasShadow="False"
+                TranslationY="-20"
+               >
 
                 <Grid RowDefinitions="Auto,Auto,*">
 
                     <!-- Cabeçalho da lista -->
                     <Grid Grid.Row="0" ColumnDefinitions="*,*"
-                          HeightRequest="20"
-                          Margin="0,10,0,5">
+                          HeightRequest="20">
 
                         <Label Grid.Column="0"                           
                            Text="Exercício" 
-                           FontSize="16"
+                           FontSize="17"
                            TextColor="White"
                            FontFamily="QuicksandRegular"    
                            HorizontalOptions="Start"                          
@@ -99,7 +80,7 @@
 
                         <Label Grid.Column="1"                          
                             Text="Séries x Reps" 
-                            FontSize="16"
+                            FontSize="17"
                             TextColor="White"
                             FontFamily="QuicksandRegular"   
                             HorizontalOptions="End"                        
@@ -107,22 +88,23 @@
                     </Grid>
 
                     <!-- Linha divisória -->
-                    <BoxView Grid.Row="1" HeightRequest="1" Color="#E6E6FA" Margin="0,5"/>
+                    <BoxView Grid.Row="1" HeightRequest="2" Color="#E6E6FA" Margin="0,5"/>
 
                     <!-- Lista de exercícios -->
                     <CollectionView Grid.Row="2"
                         x:Name="ExerciciosCollectionView"
                         SelectionMode="None"
                         VerticalScrollBarVisibility="Never"
-                        Margin="0,10,0,0">
+                        Margin="0,5,0,0">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <VerticalStackLayout Spacing="0">
 
-                                    <Grid ColumnDefinitions="Auto,120,*"
+                                    <Grid ColumnDefinitions="Auto,*,*"
                                         HeightRequest="65"
-                                        Margin="0,5">
+                                        Margin="0,5"
+                                          Padding="0,10">
 
                                         <!-- Imagem do exercício -->
                                         <Frame Grid.Column="0"
@@ -168,7 +150,7 @@
                                               HorizontalOptions="End"
                                               MinimumWidthRequest="145">
                                             <Label Grid.Column="0"
-                                                   Margin="45,10,0,0"
+                                                   Margin="50,10,0,0"
                                                    Text="{Binding SeriesReps}"
                                                    TextColor="White"
                                                    FontFamily="QuicksandRegular"
@@ -178,7 +160,7 @@
                                                          Source="more_vert_22dp_lavender.png"                                     
                                                          HeightRequest="22"                                     
                                                          BackgroundColor="Transparent"
-                                                         Margin="5,-25,0,0"
+                                                         Margin="10,-8,0,0"
                                                          Clicked="MenuExercicio_Clicked"/>
                                         </Grid>
                                     </Grid>
@@ -193,61 +175,27 @@
             </Frame>
 
             <!-- Botão Concluir Treino -->
-            <VerticalStackLayout Grid.Row="3"
-                        HorizontalOptions="Center"
-                        Margin="0,10,0,20">
+            <VerticalStackLayout Grid.Row="2"
+            HorizontalOptions="Center"
+            Margin="0,0,0,20"
+            VerticalOptions="End">
                 <Button Text="Concluir Treino"
-                        Clicked="ConcluirTreino_Clicked"
-                        BackgroundColor="#4D2D8C"
-                        TextColor="White"
-                        FontSize="14"
-                        FontFamily="QuicksandSemibold"
-                        CornerRadius="20"
-                        WidthRequest="327"
-                        HeightRequest="40"/>
+            Clicked="ConcluirTreino_Clicked"
+            BackgroundColor="#4D2D8C"
+            TextColor="White"
+            FontSize="14"
+            FontFamily="QuicksandSemibold"
+            CornerRadius="20"
+            WidthRequest="327"
+            HeightRequest="40"/>
             </VerticalStackLayout>
-        </Grid>
 
-        <!-- Overlay do fundo -->
-        <BoxView x:Name="OverlayFundo"
-                 BackgroundColor="Black"
-                 Opacity="0.01"
-                 IsVisible="False"
-                 AbsoluteLayout.LayoutBounds="0,0,1,1"
-                 AbsoluteLayout.LayoutFlags="All">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OverlayFundo_Tapped" />
-            </BoxView.GestureRecognizers>
-        </BoxView>
 
-        <!-- Menu lateral -->
-        <Frame x:Name="MenuLateral"
-               IsVisible="False"
-               Padding="0" 
-               Margin="0"
-               WidthRequest="80"    
-               TranslationX="22"
-               TranslationY="50"
-               HasShadow="False"
-               BackgroundColor="Transparent"    
-               BorderColor="Transparent"
-               VerticalOptions="Start"
-               HorizontalOptions="Start">
-
-            <VerticalStackLayout Spacing="0">
-                <Button Text="Sobre" Clicked="Sobre_Clicked"
-                        BackgroundColor="Grey"
-                        FontSize="12"
-                        CornerRadius="0"/>
-                <Button Text="Contato" Clicked="Contato_Clicked"
-                        BackgroundColor="Grey"
-                        FontSize="12"
-                        CornerRadius="0"/>
-                <Button Text="Logout" Clicked="Logout_Clicked"
-                        BackgroundColor="Grey"
-                        FontSize="12"
-                        CornerRadius="0"/>
-            </VerticalStackLayout>
-        </Frame>
-    </AbsoluteLayout>
+            <!-- Menu sobreposto -->
+        <controls:MenuHamburguer x:Name="menuHamburguer"
+                   Grid.RowSpan="2"
+                   VerticalOptions="Start"/>
+    </Grid>
+    
+    
 </ContentPage>
