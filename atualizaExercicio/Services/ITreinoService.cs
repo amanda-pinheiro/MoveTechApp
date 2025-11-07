@@ -16,6 +16,12 @@ namespace atualizaExercicio.Services
 
         Task<bool> RegistrarTreinoConcluidoAsync(RegistroTreinoData registroData);
 
+        Task<ExercicioParametros> BuscarParametrosAnterioresAsync(int exercicioId, int usuarioId, int treinoExercicioAtualId);
+
+        Task<bool> AtualizarExercicioTreinoAsync(ExercicioParametros parametros);
+
+
+
     }
 
 }

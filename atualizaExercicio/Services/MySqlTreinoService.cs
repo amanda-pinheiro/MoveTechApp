@@ -328,5 +328,105 @@ namespace atualizaExercicio.Services
             }
         }
 
+        public async Task<ExercicioParametros> BuscarParametrosAnterioresAsync(int exercicioId, int usuarioId, int treinoExercicioAtualId)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    // ✅ CORREÇÃO: Buscar o histórico do MESMO exercício no MESMO treino anterior
+                    string query = @"
+                SELECT te.serie, te.reps, te.carga, te.intervalo 
+                FROM TreinoExercicio te
+                INNER JOIN Treino t ON te.idTreino = t.idTreino
+                WHERE te.idExercicio = @ExercicioId 
+                  AND t.usuario_Treino = @UsuarioId
+                  AND te.idTreinoExercicio < @TreinoExercicioAtualId  -- ✅ Busca apenas anteriores
+                ORDER BY te.idTreinoExercicio DESC  -- ✅ Ordena pelo ID do treinoExercicio
+                LIMIT 1";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ExercicioId", exercicioId);
+                        cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                        cmd.Parameters.AddWithValue("@TreinoExercicioAtualId", treinoExercicioAtualId);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return new ExercicioParametros
+                                {
+                                    Serie = reader.IsDBNull(reader.GetOrdinal("serie")) ? 3 : reader.GetInt32("serie"),
+                                    Reps = reader.IsDBNull(reader.GetOrdinal("reps")) ? 12 : reader.GetInt32("reps"),
+                                    Carga = reader.IsDBNull(reader.GetOrdinal("carga")) ? 0 : reader.GetDouble("carga"),
+                                    Intervalo = reader.IsDBNull(reader.GetOrdinal("intervalo"))
+                                        ? TimeSpan.FromSeconds(60)
+                                        : TimeSpan.FromSeconds(reader.GetInt32("intervalo"))
+                                };
+                            }
+                            else
+                            {
+                                // ✅ Se não encontrar histórico, retorna valores padrão
+                                return new ExercicioParametros
+                                {
+                                    Serie = 3,
+                                    Reps = 12,
+                                    Carga = 0,
+                                    Intervalo = TimeSpan.FromSeconds(60)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao buscar parâmetros anteriores: {ex.Message}");
+                return new ExercicioParametros(); // Retorna vazio em caso de erro
+            }
+        }
+
+        public async Task<bool> AtualizarExercicioTreinoAsync(ExercicioParametros parametros)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    // ✅ ATUALIZA o registro existente (não cria novo)
+                    string query = @"
+                UPDATE TreinoExercicio 
+                SET serie = @Serie, 
+                    reps = @Reps, 
+                    intervalo = @Intervalo, 
+                    carga = @Carga
+                WHERE idTreinoExercicio = @TreinoExercicioId";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Serie", parametros.Serie);
+                        cmd.Parameters.AddWithValue("@Reps", parametros.Reps);
+                        cmd.Parameters.AddWithValue("@Intervalo", (int)parametros.Intervalo.TotalSeconds);
+                        cmd.Parameters.AddWithValue("@Carga", parametros.Carga > 0 ? (object)parametros.Carga : DBNull.Value);
+                        cmd.Parameters.AddWithValue("@TreinoExercicioId", parametros.TreinoExercicioId);
+
+                        int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
+
+                        bool atualizou = linhasAfetadas > 0;
+                        System.Diagnostics.Debug.WriteLine($"✅ Exercício atualizado: {atualizou} - ID: {parametros.TreinoExercicioId}");
+                        return atualizou;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao atualizar exercício: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

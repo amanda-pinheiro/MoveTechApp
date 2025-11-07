@@ -1,5 +1,6 @@
 ﻿using atualizaExercicio.Models;
 using atualizaExercicio.Services;
+using atualizaExercicio.Views.VisualizarTreino;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -346,6 +347,7 @@ namespace atualizaExercicio.Views.CriarTreino
                     DataInicio = DateTime.Now.Date,
                     DataFim = null,
                     UsuarioId = usuarioId
+                    
                 };
 
                 // ✅ SALVAR TREINO NO BD (SEM VALIDAÇÃO COMPLEXA)
@@ -385,7 +387,7 @@ namespace atualizaExercicio.Views.CriarTreino
                     // ✅ LIMPAR DADOS E VOLTAR
                     _exerciciosSelecionados.Clear();
                     _parametrosTemporarios.Clear();
-                    await Navigation.PopAsync();
+                    await Navigation.PushAsync(new Visualizar_TreinoPage1());
                 }
                 else
                 {

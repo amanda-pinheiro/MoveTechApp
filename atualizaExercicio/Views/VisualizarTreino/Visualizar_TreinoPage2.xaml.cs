@@ -103,8 +103,27 @@ namespace atualizaExercicio.Views.VisualizarTreino
 
         private async Task EditarParametrosExercicio(ExercicioTreinoViewModel exercicio)
         {
-            await DisplayAlert("Editar", $"Editando parâmetros de {exercicio.NomeExercicio}", "OK");
-            // ✅ Futuro: Navegar para tela de edição de parâmetros
+            try
+            {
+                // ✅ Obter usuário logado
+                var usuarioIdStr = await SecureStorage.GetAsync("usuario_id");
+                if (string.IsNullOrEmpty(usuarioIdStr) || !int.TryParse(usuarioIdStr, out int usuarioId))
+                {
+                    await DisplayAlert("Erro", "Usuário não identificado. Faça login novamente.", "OK");
+                    return;
+                }
+
+                // ✅ Navegar para tela de edição de parâmetros com todos os dados necessários
+                await Navigation.PushAsync(new Visualizar_TreinoPage4(
+                    exercicio: exercicio,
+                    usuarioId: usuarioId,
+                    treinoExercicioId: exercicio.TreinoExercicioId
+                ));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro", $"Erro ao editar parâmetros: {ex.Message}", "OK");
+            }
         }
 
         private async Task RemoverExercicioTreino(ExercicioTreinoViewModel exercicio)

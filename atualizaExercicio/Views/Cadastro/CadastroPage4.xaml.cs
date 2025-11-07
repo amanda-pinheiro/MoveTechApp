@@ -1,3 +1,5 @@
+using atualizaExercicio.Views.Login;
+
 namespace atualizaExercicio.Views.Cadastro;
 
 public partial class CadastroPage4 : ContentPage
@@ -24,7 +26,7 @@ public partial class CadastroPage4 : ContentPage
     {
         try
         {
-            await Navigation.PushAsync(new Home());
+            await Navigation.PushAsync(new LoginPage1());
         }
         catch (Exception ex)
         {

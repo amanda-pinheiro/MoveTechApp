@@ -18,5 +18,7 @@ namespace atualizaExercicio.Models
 
         // ✅ Para salvar depois no BD
         public int TreinoId { get; set; }
+
+        public int TreinoExercicioId { get; set; }
     }
 }
