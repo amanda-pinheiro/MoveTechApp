@@ -147,7 +147,7 @@
                                            TextColor="#FFB6C1"
                                            FontSize="14"
                                            FontAttributes="Bold"
-                                           HorizontalOptions="Center"
+                                           HorizontalOptions="Start"
                                            FontFamily="QuicksandRegular"/>
                                     <Label Grid.Column="2"
                                            Text="Parâmetros Atuais"
@@ -187,7 +187,7 @@
                                            TextColor="White"
                                            BackgroundColor="#2A2A3E"
                                            HorizontalTextAlignment="Center"
-                                           HeightRequest="40"
+                                           HeightRequest="30"
                                            FontFamily="QuicksandRegular"/>
                                 </Grid>
 
