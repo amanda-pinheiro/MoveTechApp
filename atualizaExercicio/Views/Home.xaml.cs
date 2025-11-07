@@ -1,3 +1,4 @@
+using atualizaExercicio.Controls;
 using atualizaExercicio.Views.CriarTreino;
 using atualizaExercicio.Views.VisualizarTreino;
 namespace atualizaExercicio.Views;
@@ -7,7 +8,9 @@ public partial class Home : ContentPage
 	public Home()
 	{
 		InitializeComponent();
-	}
+        // Passa a referência da página para o ContentView
+        menuHamburguer.ParentPage = this;
+    }
 
     private async void novoTreino_Clicked(object sender, EventArgs e)
     {
@@ -20,39 +23,7 @@ public partial class Home : ContentPage
             await DisplayAlert("Ops!", "Não foi possível voltar. Tente novamente", "Ok");
 
         }
-    }
-
-    // ===== MENU HAMBURGUER =====
-    private void OnMenuClicked(object sender, EventArgs e)
-    {
-        bool exibir = !MenuLateral.IsVisible;
-        MenuLateral.IsVisible = exibir;
-        OverlayFundo.IsVisible = exibir;
-    }
-
-    //Fecha o menu hamburguer se o usuário clicar fora
-    private void OnOverlayTapped(object sender, EventArgs e)
-    {
-        MenuLateral.IsVisible = false;
-        OverlayFundo.IsVisible = false;
-    }
-
-    private async void Sobre_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-        MenuLateral.IsVisible = false;
-    }
-
-    private async void Contato_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-        MenuLateral.IsVisible = false;
-    }
-    private async void Logout_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Logout", "", "OK");
-        MenuLateral.IsVisible = false;
-    }
+    }     
 
     private async void Button_Clicked_VerTreinos(object sender, EventArgs e)
     {

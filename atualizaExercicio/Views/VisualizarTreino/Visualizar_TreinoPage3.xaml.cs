@@ -1,4 +1,5 @@
-﻿using atualizaExercicio.Models;
+﻿using atualizaExercicio.Controls;
+using atualizaExercicio.Models;
 
 namespace atualizaExercicio.Views.VisualizarTreino;
 
@@ -10,6 +11,8 @@ public partial class Visualizar_TreinoPage3 : ContentPage
     public Visualizar_TreinoPage3(ExercicioTreinoViewModel exercicio)
     {
         InitializeComponent();
+        // Passa a referência da página para o ContentView
+        menuHamburguer.ParentPage = this;
 
         _exercicio = exercicio;
 
@@ -65,37 +68,6 @@ public partial class Visualizar_TreinoPage3 : ContentPage
         {
             System.Diagnostics.Debug.WriteLine("ℹ️ Exercício sem imagem");
         }
-    }
-
-    // ✅ EVENTOS DO MENU LATERAL
-    private void MenuButton_Clicked(object sender, EventArgs e)
-    {
-        MenuLateral.IsVisible = true;
-        OverlayFundo.IsVisible = true;
-    }
-
-    private void OverlayFundo_Tapped(object sender, TappedEventArgs e)
-    {
-        MenuLateral.IsVisible = false;
-        OverlayFundo.IsVisible = false;
-    }
-
-    private async void Sobre_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-        MenuLateral.IsVisible = false;
-    }
-
-    private async void Contato_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-        MenuLateral.IsVisible = false;
-    }
-
-    private async void Logout_Clicked(object sender, EventArgs e)
-    {
-        await DisplayAlert("Logout", "", "OK");
-        MenuLateral.IsVisible = false;
     }
 
     private async void Voltar_Clicked(object sender, EventArgs e)

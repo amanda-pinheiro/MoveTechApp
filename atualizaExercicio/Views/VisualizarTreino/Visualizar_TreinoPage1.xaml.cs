@@ -1,6 +1,7 @@
 ﻿using atualizaExercicio.Models;
 using atualizaExercicio.Services;
 using atualizaExercicio.Views.CriarTreino;
+using atualizaExercicio.Controls;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,9 @@ namespace atualizaExercicio.Views.VisualizarTreino
         public Visualizar_TreinoPage1()
         {
             InitializeComponent();
+
+            // Passa a referência da página para o ContentView
+            menuHamburguer.ParentPage = this;
 
             _treinoService = new MySqlTreinoService();
             _todosTreinos = new List<TreinoCardViewModel>();
@@ -266,32 +270,7 @@ namespace atualizaExercicio.Views.VisualizarTreino
                 System.Diagnostics.Debug.WriteLine($"Erro na busca: {ex.Message}");
             }
         }
-
-        // ✅ MÉTODOS EXISTENTES (mantidos da sua base)
-        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-        {
-            MenuLateral.IsVisible = false;
-            OverlayFundo.IsVisible = false;
-        }
-
-        private async void Sobre_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Contato_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
-        private async void Logout_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Logout", "", "OK");
-            MenuLateral.IsVisible = false;
-        }
-
+                
         private async void btn_NovoTreino(object sender, EventArgs e)
         {
             try

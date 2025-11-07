@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:atualizaExercicio.Controls"
              x:Class="atualizaExercicio.Views.VisualizarTreino.Visualizar_TreinoPage1"
              Title="Visualizar_TreinoPage1"
-             Background="#0F0F10">
+             Background="#010101">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -31,39 +32,20 @@
                 <Setter Property="FontFamily" Value="QuicksandRegular"/>
             </Style>
 
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="7"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CharacterSpacing" Value="0"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <AbsoluteLayout>
-        <Grid RowDefinitions="Auto,*,Auto" Padding="0"
-        AbsoluteLayout.LayoutBounds="0,0,1,1"
-        AbsoluteLayout.LayoutFlags="All">
+    
+        <Grid RowDefinitions="Auto,*,Auto" Padding="0">
 
             <!-- Header -->
-            <Grid Grid.Row="0"             
-                 Padding="15,10" 
-                 HeightRequest="70"                
-                 VerticalOptions="Start">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" HeightRequest="70">
 
-                <!-- Menu hamburguer -->
-                <ImageButton Source="menu_burguer_34dp.png"                   
-                   WidthRequest="25"
-                   HeightRequest="25"
-                   BackgroundColor="Transparent"
-                   Grid.Column="0"
-                   />
-                <!-- Logo -->
-                <Label Text="MoveTech"
-                 TextColor="Lavender"
-                 FontSize="20"
-                 FontFamily="QuicksandMedium"
-                 VerticalOptions="Center"
-                 Grid.Column="2"/>
             </Grid>
 
             <!-- ✅ CORREÇÃO: Adicionado x:Name no ScrollView -->
@@ -86,39 +68,21 @@
                            TextChanged="SearchBar_TextChanged"/>
 
                         <!-- Botão "Novo Treino" -->
-                        <Grid Grid.Column="2"
-                              WidthRequest="58"
-                              HeightRequest="58"
+                        <Grid Grid.Column="2"                             
                               HorizontalOptions="End"
                               VerticalOptions="Center"
                               Margin="5,0,0,0">
 
                             <!-- ✅ CORREÇÃO: Alterado Command para Clicked -->
-                            <Button x:Name="BtnNovoTreino"
-                                    BackgroundColor="#1C1C1E"
-                                    BorderColor="#4D2D8C"
-                                    CornerRadius="16"
+                            <ImageButton x:Name="BtnNovoTreino"
+                                    Source="addtreino.png"
+                                    Background="Transparent"     
+                                    CornerRadius="17"
+                                    HeightRequest="57"                                   
                                     Padding="0"
                                     Clicked="btn_NovoTreino"
                                     HorizontalOptions="Fill"
-                                    VerticalOptions="Fill"/>
-
-                            <!-- Visual sobreposto -->
-                            <VerticalStackLayout Spacing="0"
-                                                 HorizontalOptions="Center"
-                                                 VerticalOptions="Center"
-                                                 IsVisible="True">
-                                <Label Text="+"
-                                       FontSize="30"
-                                       FontFamily="QuicksandSemibold"
-                                       TextColor="#4D2D8C"
-                                       HorizontalOptions="Center"/>
-                                <Label Text="Novo Treino"
-                                       FontSize="8"
-                                       FontFamily="QuicksandRegular"
-                                       TextColor="White"
-                                       HorizontalOptions="Center"/>
-                            </VerticalStackLayout>
+                                    VerticalOptions="Fill"/>                            
                         </Grid>
 
                     </Grid>
@@ -139,49 +103,12 @@
 
                 </VerticalStackLayout>
             </ScrollView>
-        </Grid>
+        
 
-        <!-- Overlay do fundo -->
-        <BoxView x:Name="OverlayFundo"
-                 BackgroundColor="Black"
-                 Opacity="0.01"
-                 IsVisible="False"
-                 AbsoluteLayout.LayoutBounds="0,0,1,1"
-                 AbsoluteLayout.LayoutFlags="All">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-            </BoxView.GestureRecognizers>
-        </BoxView>
+        <!-- Menu sobreposto -->
+        <controls:MenuHamburguer x:Name="menuHamburguer"
+                          Grid.RowSpan="2"
+                          VerticalOptions="Start"/>
+    </Grid>
 
-        <!-- Menu lateral -->
-        <Frame x:Name="MenuLateral"
-               IsVisible="False"
-               Padding="0" 
-               Margin="0"
-               WidthRequest="80"    
-               TranslationX="22"
-               TranslationY="50"
-               HasShadow="False"
-               BackgroundColor="Transparent"    
-               BorderColor="Transparent"
-               VerticalOptions="Start"
-               HorizontalOptions="Start">
-
-            <VerticalStackLayout Spacing="0">
-                <Button Text="Sobre" Clicked="Sobre_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-                <Button Text="Contato" Clicked="Contato_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-                <Button Text="Logout" Clicked="Logout_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-            </VerticalStackLayout>
-        </Frame>
-
-    </AbsoluteLayout>
 </ContentPage>
