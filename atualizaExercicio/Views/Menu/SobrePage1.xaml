@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="atualizaExercicio.Views.Menu.SobrePage1"
+             Title="SobrePage1">
+
+    <Grid>
+        <!-- Imagem de fundo -->
+        <Image Source="apptela.jpg" Aspect="AspectFill" 
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill"/>
+
+        <BoxView BackgroundColor="#80000000" 
+             VerticalOptions="FillAndExpand"
+             HorizontalOptions="FillAndExpand"/>
+
+        <!-- Header -->
+        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+              VerticalOptions="Start"
+              Spacing="0">
+            <Grid BackgroundColor="#010101" 
+                  Padding="15,10" 
+                  HeightRequest="70" 
+                  VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Label Text="MoveTech"
+                       TextColor="Lavender"
+                       FontSize="20"
+                       Margin="0,0,10,0"
+                       FontFamily="QuicksandMedium"
+                       VerticalOptions="Center"
+                       Grid.Column="2"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Texto centralizado no restante da tela -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="1"
+                   Text="O MoveTech é um aplicativo desenvolvido por quatro estudantes como parte de um projeto de TCC. Criado para atender à crescente demanda por saúde e bem-estar, o app permite que praticantes de musculação criem, atualizem e acompanhem suas rotinas de treino de forma personalizada. Com uma interface intuitiva e recursos que promovem autonomia e organização, o MoveTech une tecnologia e qualidade de vida em uma solução prática e acessível."
+                   FontSize="18"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   LineBreakMode="WordWrap"
+                   WidthRequest="300"/>
+
+
+
+            <!-- Botão de Voltar centralizado na parte inferior -->
+            <Button Grid.Row="2" Grid.Column="1"
+            x:Name="VoltarButton1"
+            Text="Voltar"
+            BackgroundColor="#4D2D8C"
+            TextColor="#FFFFFF"
+            Opacity="0.8"
+            CornerRadius="20"
+            Padding="20,10"
+            FontFamily="QuicksandRegular"
+            Clicked="VoltarButton1_Clicked"
+            WidthRequest="120"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,20"/>
+
+        </Grid>
+
+
+    </Grid>
+
+
+
+
+</ContentPage>

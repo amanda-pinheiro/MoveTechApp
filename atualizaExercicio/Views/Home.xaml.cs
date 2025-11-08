@@ -39,14 +39,29 @@ public partial class Home : ContentPage
 
     private async void Sobre_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-        MenuLateral.IsVisible = false;
+
+        try
+        { 
+            await Navigation.PushAsync(new Menu.SobrePage1());
+        }
+        catch
+        {
+            await DisplayAlert("Ops!", "Não foi possível voltar. Tente novamente", "Ok");
+        }
+
+
     }
 
     private async void Contato_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Contato", "Você clicou em Contato", "OK");
-        MenuLateral.IsVisible = false;
+        try
+        {
+            await Navigation.PushAsync(new Menu.ContatoPage1());
+        }
+        catch
+        {
+            await DisplayAlert("Ops!", "Não foi possível voltar. Tente novamente", "Ok");
+        }
     }
     private async void Logout_Clicked(object sender, EventArgs e)
     {

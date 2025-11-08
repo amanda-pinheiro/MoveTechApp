@@ -114,6 +114,12 @@
 	  <MauiXaml Update="Views\Login\LoginPage2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Menu\ContatoPage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Menu\SobrePage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\VisualizarTreino\Visualizar_TreinoPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
