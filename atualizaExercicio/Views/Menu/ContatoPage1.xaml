@@ -53,14 +53,33 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="1"
-                   Text="Encontrou algum bug ou tem sugestões de melhoria? Fale com a gente pelo e-mail: movitech@seuemail.com"
-                   FontSize="18"
-                   TextColor="White"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   LineBreakMode="WordWrap"
-                   WidthRequest="300"/>
+
+
+            
+            <Frame Grid.Row="1" Grid.Column="1"
+                   BackgroundColor="#4D0082"
+                   Opacity="0.70"
+                   Padding="10"
+                   Margin="0,0,0,15"
+                   WidthRequest="350">
+                <Label Text="Encontrou algum bug ou tem sugestões de melhoria? Fale com a gente pelo e-mail: movetech@seuemail.com"
+                       FontSize="20"
+                       Margin="15,20,20,15"
+                       TextColor="White"
+                       CharacterSpacing="1.4"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontFamily="QuicksandRegular"/>
+                
+            </Frame>
+
+
+
+
+
+
+
+
 
 
 

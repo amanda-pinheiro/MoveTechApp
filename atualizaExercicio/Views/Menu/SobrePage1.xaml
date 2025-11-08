@@ -52,15 +52,24 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="1"
-                   Text="O MoveTech é um aplicativo desenvolvido por quatro estudantes como parte de um projeto de TCC. Criado para atender à crescente demanda por saúde e bem-estar, o app permite que praticantes de musculação criem, atualizem e acompanhem suas rotinas de treino de forma personalizada. Com uma interface intuitiva e recursos que promovem autonomia e organização, o MoveTech une tecnologia e qualidade de vida em uma solução prática e acessível."
-                   FontSize="18"
-                   TextColor="White"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   LineBreakMode="WordWrap"
-                   WidthRequest="300"/>
 
+
+
+            <Frame Grid.Row="1" Grid.Column="1"
+                   BackgroundColor="#4D0082"
+                   Opacity="0.70"
+                   Padding="10"
+                   Margin="0,0,0,15"
+                   WidthRequest="350">
+                <Label Text="O MoveTech é um aplicativo desenvolvido por quatro estudantes como parte de um projeto de TCC. Criado para atender à crescente demanda por saúde e bem-estar, o app permite que praticantes de musculação criem, atualizem e acompanhem suas rotinas de treino de forma personalizada. Com uma interface intuitiva e recursos que promovem autonomia e organização, o MoveTech une tecnologia e qualidade de vida em uma solução prática e acessível."
+                       FontSize="20"
+                       Margin="15,20,20,15"
+                       TextColor="White"
+                       CharacterSpacing="1.4"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontFamily="QuicksandRegular"/>
+            </Frame>
 
 
             <!-- Botão de Voltar centralizado na parte inferior -->

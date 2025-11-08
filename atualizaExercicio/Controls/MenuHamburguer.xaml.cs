@@ -1,4 +1,5 @@
 using atualizaExercicio.Views;
+using atualizaExercicio.Views.Menu;
 
 namespace atualizaExercicio.Controls
 {
@@ -36,8 +37,8 @@ namespace atualizaExercicio.Controls
 
             if (currentPage != null)
             {
-                await currentPage.DisplayAlert("Sobre", "Você clicou em Sobre", "OK");
-                //await ParentPage.Navigation.PushAsync(new Home());
+                
+                await ParentPage.Navigation.PushAsync(new SobrePage1 ());
             }
 
             
@@ -53,8 +54,8 @@ namespace atualizaExercicio.Controls
 
             if (ParentPage != null)
             {
-                await ParentPage.DisplayAlert("Contato", "Você clicou em Contato", "OK");
-                // await ParentPage.Navigation.PushAsync(new ContatoPage());
+              
+                await ParentPage.Navigation.PushAsync(new ContatoPage1());
             }
 
         }
