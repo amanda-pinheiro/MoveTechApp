@@ -24,31 +24,73 @@ namespace atualizaExercicio.Views.VisualizarTreino
             _todosTreinos = new List<TreinoCardViewModel>();
             _treinosFiltrados = new List<TreinoCardViewModel>();
 
-            CarregarTreinos();
+            CarregarTreinosInicial();
         }
 
-        private async void CarregarTreinos()
+        // ✅ MÉTODO RENOMEADO para evitar conflito
+        private async void CarregarTreinosInicial()
         {
             try
             {
-                // ✅ OBTER ID DO USUÁRIO LOGADO
+                // ✅ Obter usuário logado
                 var usuarioIdStr = await SecureStorage.GetAsync("usuario_id");
                 if (string.IsNullOrEmpty(usuarioIdStr) || !int.TryParse(usuarioIdStr, out int usuarioId))
                 {
-                    await DisplayAlert("Erro", "Usuário não identificado. Faça login novamente.", "OK");
+                    await DisplayAlert("Erro", "Usuário não identificado.", "OK");
                     return;
                 }
 
-                // ✅ BUSCAR TREINOS DO BD
+                System.Diagnostics.Debug.WriteLine($"🔍 Buscando treinos para usuário ID: {usuarioId}");
+
+                // ✅ Carregar treinos do service
                 _todosTreinos = await _treinoService.BuscarTreinosCardAsync(usuarioId);
+
+                System.Diagnostics.Debug.WriteLine($"📊 Treinos retornados do service: {_todosTreinos?.Count ?? 0}");
+
                 _treinosFiltrados = new List<TreinoCardViewModel>(_todosTreinos);
 
-                // ✅ ATUALIZAR UI
+                // ✅ DEBUG: Mostrar cada treino retornado
+                foreach (var treino in _todosTreinos)
+                {
+                    System.Diagnostics.Debug.WriteLine($"🏋️ Treino: {treino.Titulo}, Data: {treino.DataRegistro}, ID: {treino.TreinoId}");
+                }
+
+                // ✅ Atualizar a UI
                 AtualizarListaTreinos();
+
+                System.Diagnostics.Debug.WriteLine($"✅ Lista de treinos carregada: {_todosTreinos.Count} treinos");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Erro", $"Erro ao carregar treinos: {ex.Message}", "OK");
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao carregar treinos: {ex.Message}");
+            }
+        }
+
+        // ✅ NOVO MÉTODO para recarregar após exclusão
+        private async Task CarregarTreinos()
+        {
+            try
+            {
+                // ✅ Obter usuário logado
+                var usuarioIdStr = await SecureStorage.GetAsync("usuario_id");
+                if (string.IsNullOrEmpty(usuarioIdStr) || !int.TryParse(usuarioIdStr, out int usuarioId))
+                {
+                    await DisplayAlert("Erro", "Usuário não identificado.", "OK");
+                    return;
+                }
+
+                // ✅ Recarregar treinos do service
+                _todosTreinos = await _treinoService.BuscarTreinosCardAsync(usuarioId);
+                _treinosFiltrados = new List<TreinoCardViewModel>(_todosTreinos);
+
+                // ✅ Atualizar a UI
+                AtualizarListaTreinos();
+
+                System.Diagnostics.Debug.WriteLine($"✅ Lista de treinos recarregada: {_todosTreinos.Count} treinos");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao recarregar treinos: {ex.Message}");
             }
         }
 
@@ -206,10 +248,21 @@ namespace atualizaExercicio.Views.VisualizarTreino
 
             grid.Add(direitaStack, 1, 0);
 
-            // ✅ BOTÃO INICIAR
+            // ✅ BOTÃO INICIAR E BOTÃO EXCLUIR - AGORA EM UMA GRID LATERAL
+            var botoesGrid = new Grid
+            {
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = GridLength.Star },
+                    new ColumnDefinition { Width = GridLength.Auto }
+                },
+                ColumnSpacing = 10,
+                Margin = new Thickness(0, 10, 0, 0)
+            };
+
             var botaoIniciar = new Button
             {
-                Text = treino.TemRegistro ? "Continuar" : "Iniciar",
+                Text = treino.TemRegistro ? "Iniciar" : "Iniciar",
                 CornerRadius = 20,
                 HeightRequest = 44,
                 Padding = new Thickness(10, 0),
@@ -217,15 +270,32 @@ namespace atualizaExercicio.Views.VisualizarTreino
                 TextColor = Colors.White,
                 FontFamily = "QuicksandSemibold",
                 FontSize = 14,
-                HorizontalOptions = LayoutOptions.Fill,
-                VerticalOptions = LayoutOptions.End,
-                Margin = new Thickness(0, 10, 0, 0)
+                HorizontalOptions = LayoutOptions.Fill
             };
 
             botaoIniciar.Clicked += (s, e) => BotaoIniciar_Clicked(treino);
 
-            grid.Add(botaoIniciar, 0, 3);
-            Grid.SetColumnSpan(botaoIniciar, 2);
+            var botaoExcluir = new ImageButton
+            {
+                Source = "delete_icon.png", // Você precisa ter este ícone nos recursos
+                BackgroundColor = Colors.Transparent,
+                HeightRequest = 44,
+                WidthRequest = 44,
+                CornerRadius = 8,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            // ✅ ADICIONANDO O EVENTO CLICKED PARA EXCLUIR
+            botaoExcluir.Clicked += async (s, e) => await BotaoExcluir_Clicked(treino);
+
+            // ✅ ADICIONANDO OS BOTÕES NA GRID DE BOTÕES
+            botoesGrid.Add(botaoIniciar, 0, 0);
+            botoesGrid.Add(botaoExcluir, 1, 0);
+
+            // ✅ ADICIONANDO A GRID DE BOTÕES NA GRID PRINCIPAL
+            grid.Add(botoesGrid, 0, 3);
+            Grid.SetColumnSpan(botoesGrid, 2);
 
             frame.Content = grid;
             return frame;
@@ -241,6 +311,78 @@ namespace atualizaExercicio.Views.VisualizarTreino
             catch (Exception ex)
             {
                 await DisplayAlert("Erro", $"Erro ao abrir treino: {ex.Message}", "OK");
+            }
+        }
+
+        private async Task BotaoExcluir_Clicked(TreinoCardViewModel treino)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"🗑️ Tentando excluir treino: {treino.Titulo} (ID: {treino.TreinoId})");
+
+                // ✅ CONFIRMAÇÃO DO USUÁRIO
+                bool confirmacao = await DisplayAlert(
+                    "Confirmar Exclusão",
+                    $"Tem certeza que deseja excluir o treino '{treino.Titulo}'?\n\nEsta ação não pode ser desfeita.",
+                    "Sim, Excluir",
+                    "Cancelar"
+                );
+
+                if (!confirmacao)
+                {
+                    System.Diagnostics.Debug.WriteLine("❌ Exclusão cancelada pelo usuário");
+                    return;
+                }
+
+                // ✅ EXCLUIR TREINO COMPLETO
+                bool exclusaoSucesso = await _treinoService.ExcluirTreinoCompletoAsync(treino.TreinoId);
+
+                if (exclusaoSucesso)
+                {
+                    System.Diagnostics.Debug.WriteLine($"✅ Treino excluído com sucesso - ID: {treino.TreinoId}");
+
+                    // ✅ ATUALIZAR A UI - Recarregar a lista de treinos
+                    await CarregarTreinos();
+
+                    await DisplayAlert(
+                        "Sucesso",
+                        $"Treino '{treino.Titulo}' excluído com sucesso!",
+                        "OK"
+                    );
+                }
+                else
+                {
+                    await DisplayAlert(
+                        "Erro",
+                        "Não foi possível excluir o treino. Tente novamente.",
+                        "OK"
+                    );
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao processar exclusão: {ex.Message}");
+                await DisplayAlert("Erro", "Ocorreu um erro ao tentar excluir o treino.", "OK");
+            }
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("🔄 Visualizar_TreinoPage1 - OnAppearing chamado");
+
+                // ✅ RECARREGAR os treinos sempre que a página aparecer
+                await CarregarTreinos();
+
+                System.Diagnostics.Debug.WriteLine("✅ Dados recarregados no OnAppearing");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro no OnAppearing: {ex.Message}");
             }
         }
 
@@ -270,7 +412,7 @@ namespace atualizaExercicio.Views.VisualizarTreino
                 System.Diagnostics.Debug.WriteLine($"Erro na busca: {ex.Message}");
             }
         }
-                
+
         private async void btn_NovoTreino(object sender, EventArgs e)
         {
             try

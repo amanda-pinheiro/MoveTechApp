@@ -20,7 +20,9 @@ namespace atualizaExercicio.Services
 
         Task<bool> AtualizarExercicioTreinoAsync(ExercicioParametros parametros);
 
+        Task<bool> ExcluirTreinoCompletoAsync(int treinoId);
 
+        Task<bool> ExcluirExercicioTreinoAsync(int treinoExercicioId);
 
     }
 

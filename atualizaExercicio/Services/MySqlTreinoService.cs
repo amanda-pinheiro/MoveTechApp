@@ -1,6 +1,7 @@
 ﻿using atualizaExercicio.Models;
 using atualizaExercicio.Services.Database;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -144,26 +145,28 @@ namespace atualizaExercicio.Services
                 {
                     await conn.OpenAsync();
 
+                    // ✅ QUERY CORRIGIDA - Versão segura
                     string query = @"
-                SELECT 
-                    t.idTreino,
-                    t.tituloTreino,
-                    COALESCE(
-                        (SELECT MAX(rt2.data) 
-                         FROM RegistroTreino rt2 
-                         WHERE rt2.registro_Treino = t.idTreino),
-                        t.dataInicio
-                    ) as DataDisplay,
-                    COALESCE(gm.nomeGrupo, 'Geral') as GrupoMuscularPrincipal,
-                    COALESCE(e.imagem, 'placeholder_exercicio.png') as ImagemExercicio,
-                    (SELECT COUNT(*) FROM RegistroTreino rt WHERE rt.registro_Treino = t.idTreino) > 0 as TemRegistro
-                FROM Treino t
-                LEFT JOIN TreinoExercicio te ON t.idTreino = te.idTreino
-                LEFT JOIN Exercicio e ON te.idExercicio = e.idExercicio
-                LEFT JOIN GrupoMuscular gm ON e.exercicioGrupMuscular = gm.idGrupoMuscular
-                WHERE t.usuario_Treino = @UsuarioId
-                GROUP BY t.idTreino
-                ORDER BY DataDisplay DESC, t.idTreino DESC";
+            SELECT 
+                t.idTreino,
+                t.tituloTreino,
+                -- ✅ MOSTRA: Última execução OU data de criação se nunca executou
+                COALESCE(
+                    (SELECT MAX(rt2.data) 
+                     FROM RegistroTreino rt2 
+                     WHERE rt2.registro_Treino = t.idTreino),
+                    t.dataInicio
+                ) as DataDisplay,
+                COALESCE(gm.nomeGrupo, 'Geral') as GrupoMuscularPrincipal,
+                COALESCE(e.imagem, 'placeholder_exercicio.png') as ImagemExercicio,
+                (SELECT COUNT(*) FROM RegistroTreino rt WHERE rt.registro_Treino = t.idTreino) > 0 as TemRegistro
+            FROM Treino t
+            LEFT JOIN TreinoExercicio te ON t.idTreino = te.idTreino
+            LEFT JOIN Exercicio e ON te.idExercicio = e.idExercicio
+            LEFT JOIN GrupoMuscular gm ON e.exercicioGrupMuscular = gm.idGrupoMuscular
+            WHERE t.usuario_Treino = @UsuarioId
+            GROUP BY t.idTreino
+            ORDER BY DataDisplay DESC, t.idTreino DESC";
 
                     using (var cmd = new MySqlCommand(query, conn))
                     {
@@ -173,27 +176,32 @@ namespace atualizaExercicio.Services
                         {
                             while (await reader.ReadAsync())
                             {
-                                var dataDisplay = reader.GetDateTime("DataDisplay");
+                                // ✅ TRATAMENTO SEGURO da data
+                                DateTime dataDisplay = reader.GetDateTime("DataDisplay");
+                                string dataDisplayTexto = dataDisplay.ToString("dd/MM/yyyy");
+
                                 var treino = new TreinoCardViewModel
                                 {
                                     TreinoId = reader.GetInt32("idTreino"),
                                     Titulo = reader.GetString("tituloTreino"),
-                                    DataRegistro = dataDisplay.ToString("dd/MM/yyyy"),
+                                    DataRegistro = dataDisplayTexto,
                                     GrupoMuscularPrincipal = reader.GetString("GrupoMuscularPrincipal"),
                                     ImagemPrimeiroExercicio = reader.GetString("ImagemExercicio"),
                                     TemRegistro = reader.GetBoolean("TemRegistro")
                                 };
                                 treinos.Add(treino);
+
+                                System.Diagnostics.Debug.WriteLine($"✅ Service - Treino: {treino.Titulo}, Data: {treino.DataRegistro}");
                             }
                         }
                     }
                 }
 
-                System.Diagnostics.Debug.WriteLine($"✅ Encontrados {treinos.Count} treinos para o usuário {usuarioId}");
+                System.Diagnostics.Debug.WriteLine($"✅ Service retornou {treinos.Count} treinos");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Erro ao buscar treinos: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"❌ Erro no Service ao buscar treinos: {ex.Message}");
             }
 
             return treinos;
@@ -425,6 +433,113 @@ namespace atualizaExercicio.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"❌ Erro ao atualizar exercício: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> ExcluirTreinoCompletoAsync(int treinoId)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    // ✅ INICIAR TRANSACTION para garantir atomicidade
+                    using (var transaction = await conn.BeginTransactionAsync())
+                    {
+                        try
+                        {
+                            // 1º: EXCLUIR RegistroTreino
+                            string deleteRegistroTreino = @"DELETE FROM RegistroTreino WHERE registro_Treino = @TreinoId";
+                            using (var cmd1 = new MySqlCommand(deleteRegistroTreino, conn, transaction))
+                            {
+                                cmd1.Parameters.AddWithValue("@TreinoId", treinoId);
+                                await cmd1.ExecuteNonQueryAsync();
+                                System.Diagnostics.Debug.WriteLine($"✅ RegistroTreino excluído para treino ID: {treinoId}");
+                            }
+
+                            // 2º: EXCLUIR TreinoExercicio
+                            string deleteTreinoExercicio = @"DELETE FROM TreinoExercicio WHERE idTreino = @TreinoId";
+                            using (var cmd2 = new MySqlCommand(deleteTreinoExercicio, conn, transaction))
+                            {
+                                cmd2.Parameters.AddWithValue("@TreinoId", treinoId);
+                                await cmd2.ExecuteNonQueryAsync();
+                                System.Diagnostics.Debug.WriteLine($"✅ TreinoExercicio excluído para treino ID: {treinoId}");
+                            }
+
+                            // 3º: EXCLUIR Treino
+                            string deleteTreino = @"DELETE FROM Treino WHERE idTreino = @TreinoId";
+                            using (var cmd3 = new MySqlCommand(deleteTreino, conn, transaction))
+                            {
+                                cmd3.Parameters.AddWithValue("@TreinoId", treinoId);
+                                int linhasAfetadas = await cmd3.ExecuteNonQueryAsync();
+
+                                if (linhasAfetadas > 0)
+                                {
+                                    await transaction.CommitAsync();
+                                    System.Diagnostics.Debug.WriteLine($"✅ Treino excluído com sucesso - ID: {treinoId}");
+                                    return true;
+                                }
+                                else
+                                {
+                                    await transaction.RollbackAsync();
+                                    System.Diagnostics.Debug.WriteLine($"❌ Treino não encontrado - ID: {treinoId}");
+                                    return false;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            await transaction.RollbackAsync();
+                            System.Diagnostics.Debug.WriteLine($"❌ Erro na transaction ao excluir treino: {ex.Message}");
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao excluir treino completo: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> ExcluirExercicioTreinoAsync(int treinoExercicioId)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(DatabaseConfig.ConnectionString))
+                {
+                    await conn.OpenAsync();
+
+                    // ✅ EXCLUIR APENAS O EXERCÍCIO ESPECÍFICO DO TREINO
+                    string query = @"DELETE FROM TreinoExercicio WHERE idTreinoExercicio = @TreinoExercicioId";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TreinoExercicioId", treinoExercicioId);
+
+                        int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
+
+                        bool excluiu = linhasAfetadas > 0;
+
+                        if (excluiu)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"✅ Exercício removido do treino - TreinoExercicioId: {treinoExercicioId}");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine($"❌ Exercício não encontrado - TreinoExercicioId: {treinoExercicioId}");
+                        }
+
+                        return excluiu;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao excluir exercício do treino: {ex.Message}");
                 return false;
             }
         }

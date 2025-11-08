@@ -131,17 +131,52 @@ namespace atualizaExercicio.Views.VisualizarTreino
 
         private async Task RemoverExercicioTreino(ExercicioTreinoViewModel exercicio)
         {
-            bool confirmado = await DisplayAlert(
-                "Confirmar",
-                $"Remover {exercicio.NomeExercicio} do treino?",
-                "Sim", "Não"
-            );
-
-            if (confirmado)
+            try
             {
-                // ✅ Futuro: Implementar remoção no BD
-                _exercicios.Remove(exercicio);
-                await DisplayAlert("Sucesso", $"{exercicio.NomeExercicio} removido do treino", "OK");
+                System.Diagnostics.Debug.WriteLine($"🗑️ Tentando excluir exercício do treino: {exercicio.NomeExercicio} (ID: {exercicio.TreinoExercicioId})");
+
+                bool confirmado = await DisplayAlert(
+                    "Confirmar Exclusão",
+                    $"Tem certeza que deseja remover '{exercicio.NomeExercicio}' do treino?\n\nEsta ação não pode ser desfeita.",
+                    "Sim, Remover",
+                    "Cancelar"
+                );
+
+                if (!confirmado)
+                {
+                    System.Diagnostics.Debug.WriteLine("❌ Exclusão de exercício cancelada pelo usuário");
+                    return;
+                }
+
+                // ✅ EXCLUIR DO BANCO DE DADOS
+                bool exclusaoSucesso = await _treinoService.ExcluirExercicioTreinoAsync(exercicio.TreinoExercicioId);
+
+                if (exclusaoSucesso)
+                {
+                    System.Diagnostics.Debug.WriteLine($"✅ Exercício removido com sucesso - ID: {exercicio.TreinoExercicioId}");
+
+                    // ✅ REMOVER DA LISTA LOCAL
+                    _exercicios.Remove(exercicio);
+
+                    await DisplayAlert(
+                        "Sucesso",
+                        $"{exercicio.NomeExercicio} removido do treino!",
+                        "OK"
+                    );
+                }
+                else
+                {
+                    await DisplayAlert(
+                        "Erro",
+                        "Não foi possível remover o exercício. Tente novamente.",
+                        "OK"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Erro ao remover exercício: {ex.Message}");
+                await DisplayAlert("Erro", "Ocorreu um erro ao tentar remover o exercício.", "OK");
             }
         }
 
@@ -175,7 +210,10 @@ namespace atualizaExercicio.Views.VisualizarTreino
 
                 if (salvou)
                 {
+                    System.Diagnostics.Debug.WriteLine($"✅ Registro salvo - Data: {DateTime.Now}");
                     await DisplayAlert("Sucesso", "Treino concluído e registrado com sucesso!", "OK");
+
+                    // ✅ VOLTAR para a página anterior (que vai recarregar no OnAppearing)
                     await Navigation.PopAsync();
                 }
                 else
@@ -188,7 +226,7 @@ namespace atualizaExercicio.Views.VisualizarTreino
                 await DisplayAlert("Erro", $"Erro ao concluir treino: {ex.Message}", "OK");
             }
         }
-             
+
         private string GarantirImagemValida(string imagemOriginal)
         {
             if (string.IsNullOrEmpty(imagemOriginal) ||
