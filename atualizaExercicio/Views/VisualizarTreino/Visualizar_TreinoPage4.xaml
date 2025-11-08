@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:atualizaExercicio.Controls"
+             x:Class="atualizaExercicio.Views.VisualizarTreino.Visualizar_TreinoPage4"
+             Title="Visualizar_TreinoPage4"
+             BackgroundColor="#010101">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="7"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CharacterSpacing" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+
+            <!-- Header -->
+            <Grid Grid.Row="0" HeightRequest="70">
+            </Grid>
+
+            <!-- Content -->
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="0" Spacing="0">
+
+                    <!-- Título Treino -->
+                    <Label Text="Editar Parâmetros"
+                           TextColor="White"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,10"
+                           HorizontalOptions="Center"
+                           FontFamily="QuicksandRegular"/>
+
+                    <!-- Frame Único com todo o conteúdo -->
+                    <Frame BackgroundColor="#4A795CB3"
+                           BorderColor="#1E1E2E"
+                           CornerRadius="10"
+                           Padding="20"
+                           Margin="20,0,20,0"
+                           HasShadow="False">
+
+                        <StackLayout Spacing="15">
+
+                            <Label Text="Exercício"
+                                   TextColor="#FFFFFF"
+                                   FontSize="18"
+                                   FontFamily="QuicksandRegular"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="End"/>
+
+                            <!-- Divisor -->
+                            <BoxView HeightRequest="1"
+                                     BackgroundColor="#FFFFFF"
+                                     Margin="0,5,0,5"/>
+
+                            <!-- Card Exercício -->
+                            <Grid ColumnDefinitions="50,*,30">
+
+                                <!-- Ícone -->
+                                <Frame Grid.Column="0"
+                                       BackgroundColor="#B8B8C8"
+                                       CornerRadius="8"                                   
+                                       HasShadow="False"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
+                                       Padding="0">
+                                    <Image x:Name="ExercicioImagem"
+                                           Source="placeholder_exercicio.png"
+                                           Aspect="AspectFill"
+                                           HorizontalOptions="Fill"
+                                           VerticalOptions="Fill"/>
+                                </Frame>
+
+                                <!-- Nome do Exercício -->
+                                <StackLayout Grid.Column="1" 
+                                             VerticalOptions="Center" 
+                                             Spacing="2"
+                                             Margin="5">
+                                    <Label x:Name="ExercicioNomeLabel"
+                                           Text="Carregando..."
+                                           TextColor="White"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           FontFamily="QuicksandRegular"/>
+                                </StackLayout>
+
+                                <!-- Menu -->
+                                <Label Grid.Column="2"
+                                       Text="⋮"
+                                       TextColor="White"
+                                       FontSize="24"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"/>
+                            </Grid>
+
+                            <!-- Divisor -->
+                            <BoxView HeightRequest="1"
+                                     BackgroundColor="#FFFFFF"
+                                     Margin="0,5,0,5"/>
+
+                            <!-- Seção Parâmetros -->
+                            <StackLayout Spacing="15">
+
+                                <Label Text="Parâmetros do Exercício"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       Margin="0,0,0,5"
+                                       FontFamily="QuicksandRegular"
+                                       HorizontalOptions="Center"/>
+
+                                <!-- Divisor -->
+                                <BoxView HeightRequest="1"
+                                         BackgroundColor="#FFFFFF"
+                                         Margin="0,5,0,5"/>
+
+                                <!-- ✅ Títulos das colunas - NOVA ESTRUTURA 3 COLUNAS -->
+                                <Grid ColumnDefinitions="*,*,*" 
+                                      Margin="0,0,0,10">
+                                    <Label Grid.Column="0"
+                                           Text=""
+                                           FontSize="14"
+                                           HorizontalOptions="Start"
+                                           FontFamily="QuicksandRegular"/>
+                                    <Label Grid.Column="1"
+                                           Text="Último Treino"
+                                           TextColor="#FFB6C1"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Start"
+                                           FontFamily="QuicksandRegular"/>
+                                    <Label Grid.Column="2"
+                                           Text="Parâmetros Atuais"
+                                           TextColor="#90EE90"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           FontFamily="QuicksandRegular"/>
+                                </Grid>
+
+                                <!-- ✅ Séries - NOVA ESTRUTURA 3 COLUNAS -->
+                                <Grid ColumnDefinitions="*,120,100" Margin="0,0,0,10">
+                                    <!-- ✅ Coluna 0: Rótulo -->
+                                    <Label Grid.Column="0"
+                                           Text="Séries"
+                                           TextColor="#B8B8C8"
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 1: Histórico -->
+                                    <Label Grid.Column="1"
+                                           x:Name="SeriesAnteriorLabel"
+                                           Text="3"
+                                           TextColor="#FFB6C1"
+                                           BackgroundColor="Transparent"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           VerticalTextAlignment="Center"
+                                           FontSize="16"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 2: Atual -->
+                                    <Entry Grid.Column="2"
+                                           x:Name="SeriesAtualEntry"
+                                           Text="3"
+                                           TextColor="White"
+                                           BackgroundColor="#2A2A3E"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="30"
+                                           FontFamily="QuicksandRegular"/>
+                                </Grid>
+
+                                <!-- ✅ Repetições - NOVA ESTRUTURA 3 COLUNAS -->
+                                <Grid ColumnDefinitions="*,120,100" Margin="0,0,0,10">
+                                    <!-- ✅ Coluna 0: Rótulo -->
+                                    <Label Grid.Column="0"
+                                           Text="Repetições"
+                                           TextColor="#B8B8C8"
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 1: Histórico -->
+                                    <Label Grid.Column="1"
+                                           x:Name="RepsAnteriorLabel"
+                                           Text="12"
+                                           TextColor="#FFB6C1"
+                                           BackgroundColor="Transparent"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           VerticalTextAlignment="Center"
+                                           FontSize="16"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 2: Atual -->
+                                    <Entry Grid.Column="2"
+                                           x:Name="RepsAtualEntry"
+                                           Text="12"
+                                           TextColor="White"
+                                           BackgroundColor="#2A2A3E"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           FontFamily="QuicksandRegular"/>
+                                </Grid>
+
+                                <!-- ✅ Carga - NOVA ESTRUTURA 3 COLUNAS -->
+                                <Grid ColumnDefinitions="*,120,100" Margin="0,0,0,10">
+                                    <!-- ✅ Coluna 0: Rótulo -->
+                                    <Label Grid.Column="0"
+                                           Text="Carga (kg)"
+                                           TextColor="#B8B8C8"
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 1: Histórico -->
+                                    <Label Grid.Column="1"
+                                           x:Name="CargaAnteriorLabel"
+                                           Text="0"
+                                           TextColor="#FFB6C1"
+                                           BackgroundColor="Transparent"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           VerticalTextAlignment="Center"
+                                           FontSize="16"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 2: Atual -->
+                                    <Entry Grid.Column="2"
+                                           x:Name="CargaAtualEntry"
+                                           Text=""
+                                           TextColor="White"
+                                           BackgroundColor="#2A2A3E"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           Placeholder="0"
+                                           PlaceholderColor="#7A7A8E"
+                                           FontFamily="QuicksandRegular"/>
+                                </Grid>
+
+                                <!-- ✅ Intervalo - NOVA ESTRUTURA 3 COLUNAS -->
+                                <Grid ColumnDefinitions="*,120,100" Margin="0,0,0,10">
+                                    <!-- ✅ Coluna 0: Rótulo -->
+                                    <Label Grid.Column="0"
+                                           Text="Intervalo"
+                                           TextColor="#B8B8C8"
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 1: Histórico -->
+                                    <Label Grid.Column="1"
+                                           x:Name="IntervaloAnteriorLabel"
+                                           Text="1 min"
+                                           TextColor="#FFB6C1"
+                                           BackgroundColor="Transparent"
+                                           HorizontalTextAlignment="Center"
+                                           HeightRequest="40"
+                                           VerticalTextAlignment="Center"
+                                           FontSize="16"
+                                           FontFamily="QuicksandRegular"/>
+
+                                    <!-- ✅ Coluna 2: Atual -->
+                                    <Picker Grid.Column="2"
+                                            x:Name="IntervaloAtualPicker"
+                                            TextColor="White"
+                                            BackgroundColor="#2A2A3E"
+                                            HorizontalTextAlignment="Center"
+                                            HeightRequest="40"
+                                            SelectedIndex="2"
+                                            FontFamily="QuicksandRegular">
+                                        <Picker.Items>
+                                            <x:String>30 seg</x:String>
+                                            <x:String>1 min</x:String>
+                                            <x:String>1 min 30 seg</x:String>
+                                            <x:String>2 min</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Botão Atualizar -->
+            <Button x:Name="AtualizarButton"
+                Text="Atualizar Exercício"
+                BackgroundColor="#7C3AED"
+                Opacity="0.9"
+                TextColor="White"
+                FontSize="16"
+                WidthRequest="327"
+                HeightRequest="40"        
+                CornerRadius="25"
+                Margin="0,10,0,10"
+                Clicked="AtualizarButton_Clicked"
+                FontFamily="QuicksandRegular"
+                Grid.Row="2"/>
+
+        <!-- Menu sobreposto -->
+        <controls:MenuHamburguer x:Name="menuHamburguer"
+                            Grid.RowSpan="2"
+                            VerticalOptions="Start"/>   
+    </Grid>
+      
+</ContentPage>

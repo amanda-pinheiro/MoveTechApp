@@ -34,41 +34,7 @@
                        Margin="0,0,10,0"
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
-                       Grid.Column="2"/>
-
-                <!-- Menu -->
-                <!--HorizontalStackLayout Spacing="8" 
-                               Grid.Column="2" 
-                               VerticalOptions="Center"
-                               Margin="0,0,5,0">
-                    <Button Text="Home"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Sobre"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Contato"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="70"
-                            HeightRequest="32"/>
-
-                </HorizontalStackLayout-->
+                       Grid.Column="2"/>                
             </Grid>
         </VerticalStackLayout>
 

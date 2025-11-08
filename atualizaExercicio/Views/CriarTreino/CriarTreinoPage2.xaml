@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:atualizaExercicio.Controls"
              x:Class="atualizaExercicio.Views.CriarTreino.CriarTreinoPage2"
              Title="CriarTreinoPage2"
-             BackgroundColor="#0F0F10">
+             BackgroundColor="#010101">
 
 
-    <AbsoluteLayout>
-        <Grid RowDefinitions="Auto,*,Auto" Padding="0"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            AbsoluteLayout.LayoutFlags="All">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="7"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CharacterSpacing" Value="0"/>
 
-            <!-- Header -->
-            <Grid Grid.Row="0"             
-                 Padding="15,10" 
-                 HeightRequest="70"                
-                 VerticalOptions="Start">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-                <!-- Menu hamburguer -->
-                <ImageButton Source="menu_burguer_34dp.png"                    
-                       WidthRequest="25"
-                       HeightRequest="25"
-                       BackgroundColor="Transparent"
-                       Grid.Column="0"
-                       Clicked="OnMenuClicked"/>
-                <!-- Logo -->
-                <Label Text="MoveTech"
-                     TextColor="Lavender"
-                     FontSize="20"
-                     FontFamily="QuicksandMedium"
-                     VerticalOptions="Center"
-                     Grid.Column="2"/>
-        </Grid>
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
 
-            <!-- Content -->
-            <ScrollView Grid.Row="1">
+        <!-- Header -->
+        <Grid Grid.Row="0" HeightRequest="70"></Grid> 
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
                 <StackLayout Padding="0" Spacing="0">
 
                 <!-- Título Treino -->
@@ -248,8 +233,8 @@
             </StackLayout>
         </ScrollView>
             
-            <!-- Botão Salvar -->
-            <Button x:Name="SalvarButton"
+        <!-- Botão Salvar -->
+        <Button x:Name="SalvarButton"
                 Text="Salvar Exercício"
                 BackgroundColor="#7C3AED"
                 Opacity="0.9"
@@ -262,53 +247,14 @@
                 Clicked="SalvarExercicio_Clicked"
                 FontFamily="QuicksandRegular"
                 Grid.Row="2"/>
-        </Grid>
+       
 
-        <!--overlay do fundo, que ao clicar em qualquer lugar o menu burguer fecha-->
-        <BoxView x:Name="OverlayFundo"
-             BackgroundColor="Black"
-             Opacity="0.01"
-             IsVisible="False"
-             AbsoluteLayout.LayoutBounds="0,0,1,1"
-             AbsoluteLayout.LayoutFlags="All">
-             <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnOverlayTapped" />
-             </BoxView.GestureRecognizers>
-        </BoxView>
 
-        <!-- Menu que aparece ao clicar o burguer  -->
-        <Frame x:Name="MenuLateral"
-               IsVisible="False"
-               Padding="0" 
-               Margin="0"
-               WidthRequest="80"    
-               TranslationX="22"
-               TranslationY="50"
-               HasShadow="False"
-               BackgroundColor="Transparent"    
-               BorderColor="Transparent"
-               VerticalOptions="Start"
-               HorizontalOptions="Start">
+        <!-- Menu sobreposto -->
+        <controls:MenuHamburguer x:Name="menuHamburguer"
+                  Grid.RowSpan="2"
+                  VerticalOptions="Start"/>
 
-            <VerticalStackLayout Spacing="0">
-                <Button Text="Home" Clicked="Home_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-                <Button Text="Sobre" Clicked="Sobre_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>  
-                <Button Text="Contato" Clicked="Contato_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-                <Button Text="Logout" Clicked="Logout_Clicked"
-                    BackgroundColor="Grey"
-                    FontSize="12"
-                    CornerRadius="0"/>
-            </VerticalStackLayout>
-        </Frame>
-        
-    </AbsoluteLayout>
+    </Grid>
+
 </ContentPage>
