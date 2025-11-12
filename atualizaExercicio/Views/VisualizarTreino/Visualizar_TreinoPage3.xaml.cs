@@ -26,7 +26,7 @@ public partial class Visualizar_TreinoPage3 : ContentPage
         {
             // ✅ Atualizar labels
             NomeExercicioLabel.Text = _exercicio.NomeExercicio;
-            TituloLabel.Text = _exercicio.NomeExercicio;
+            
 
             // ✅ Carregar GIF/imagem
             CarregarGif();
