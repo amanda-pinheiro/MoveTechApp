@@ -12,7 +12,7 @@ public partial class ContatoPage1 : ContentPage
     {
         try
         {
-            await Navigation.PushAsync(new Home()); // PopAsync em vez de PushAsync
+            await Navigation.PopAsync(); // PopAsync em vez de PushAsync
         }
         catch
         {

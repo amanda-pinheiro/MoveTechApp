@@ -3,6 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="atualizaExercicio.MainPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="7"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CharacterSpacing" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <Grid>
         <!-- Imagem de fundo -->
         <Image Source="apptela.jpg" Aspect="AspectFill" 
@@ -35,41 +46,7 @@
                        FontFamily="QuicksandMedium"
                        VerticalOptions="Center"
                        Grid.Column="2"/>
-
-                <!-- Menu -->
-                <!--HorizontalStackLayout Spacing="8" 
-                        Grid.Column="2" 
-                        VerticalOptions="Center"
-                        Margin="0,0,5,0">
-
-                    <Button Text="Home"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Sobre"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="60"
-                            HeightRequest="32"/>
-
-                    <Button Text="Contato"
-                            BackgroundColor="#4D2D8C"
-                            TextColor="Lavender"
-                            CornerRadius="15"
-                            Padding="12,8"
-                            FontSize="13"
-                            MinimumWidthRequest="70"
-                            HeightRequest="32"/>
-
-                </HorizontalStackLayout-->
+           
             </Grid>
         </VerticalStackLayout>
 
@@ -94,7 +71,8 @@
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="End"
                              Spacing="10"
-                             Padding="0,0,0,20">
+                             Padding="0,0,0,20"
+                             Margin="0,0,0,50">
             <HorizontalStackLayout Spacing="15"
                                    HorizontalOptions="Center">
 
@@ -118,7 +96,57 @@
                         FontFamily="QuicksandRegular"
                         Clicked="CadastroButton_Clicked"/>
             </HorizontalStackLayout>
+            
         </VerticalStackLayout>
+        
+        <Grid x:Name="MenuGrid"
+              VerticalOptions="End"
+              HorizontalOptions="Start"
+              RowDefinitions="Auto"
+              ColumnDefinitions="Auto">
+            <ImageButton Source="info_25.png"
+                   
+                   Aspect="AspectFit"      
+                   Padding="0"
+                   BorderWidth="0"      
+                   Margin="5,0,0,5"
+                   BackgroundColor="Transparent"
+                   Clicked="Info_Clicked"/>
+        </Grid>
+        
+        <!-- Stack com as opções (inicialmente invisível) -->
+        <VerticalStackLayout x:Name="MenuOpcoes"
+                        IsVisible="False"
+                        Spacing="0"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start"
+                        Margin="35,0,0,13"> 
+           
+            <HorizontalStackLayout>
+                <Button Text="Sobre"
+                    FontSize="12"                
+                    Clicked="Sobre_Page"
+                    BackgroundColor="Transparent"
+                    Opacity="0.8"                
+                    TextColor="DarkGray"
+                    FontAttributes="Bold"
+                    WidthRequest="60"
+                    HeightRequest="25"
+                    FontFamily="QuickSand"/>
+
+                <Button Text="Contato"
+                    FontSize="12"  
+                    Clicked="Contato_Page"
+                    BackgroundColor="Transparent"
+                    Opacity="0.8"
+                    TextColor="DarkGray"
+                    FontAttributes="Bold"
+                    WidthRequest="60" 
+                    HeightRequest="25"
+                    FontFamily="QuickSand"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
     </Grid>
 
 </ContentPage>

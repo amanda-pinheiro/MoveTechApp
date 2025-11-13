@@ -40,51 +40,38 @@
             </Grid>
         </VerticalStackLayout>
 
+        <ScrollView>
         <!-- Texto centralizado no restante da tela -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <VerticalStackLayout VerticalOptions="Center">
+            <Grid RowDefinitions="*,*">
 
-
-
-            
-            <Frame Grid.Row="1" Grid.Column="1"
-                   BackgroundColor="#4D0082"
-                   Opacity="0.70"
+                <Frame Grid.Row="0"
+                   BackgroundColor="#2c2c3e"
+                   Opacity="0.9"
                    Padding="10"
-                   Margin="0,0,0,15"
-                   WidthRequest="350">
-                <Label Text="Encontrou algum bug ou tem sugestões de melhoria? Fale com a gente pelo e-mail: movetech@seuemail.com"
-                       FontSize="20"
-                       Margin="15,20,20,15"
-                       TextColor="White"
-                       CharacterSpacing="1.4"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
-                       FontFamily="QuicksandRegular"/>
-                
-            </Frame>
+                   Margin="30,60,30,15"
+                   BorderColor="Transparent">
+                    <VerticalStackLayout>                       
+                        <Image 
+                               Source="contato.png"
+                               HeightRequest="30"
+                               Margin="0,5,0,5"
+                               HorizontalOptions="Center"/>
 
+                        <Label Text="Encontrou algum bug &#10;ou tem sugestões de melhoria?&#10; Fale com a gente pelo e-mail:&#10; movetechcontato@movetech.com"
+                               LineBreakMode="WordWrap"
+                               FontSize="15"
+                               Margin="15,20,15,15"
+                               TextColor="White"
+                               CharacterSpacing="1.4"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontFamily="QuicksandRegular"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-
-
-
-
-
-
-
-
-
-            <!-- Botão de Voltar centralizado na parte inferior -->
-            <Button Grid.Row="2" Grid.Column="1"
+                <!-- Botão de Voltar centralizado na parte inferior -->
+                <Button Grid.Row="2"
             x:Name="VoltarButton1"
             Text="Voltar"
             BackgroundColor="#4D2D8C"
@@ -98,10 +85,10 @@
             HeightRequest="40"
             HorizontalOptions="Center"
             VerticalOptions="End"
-            Margin="0,20"/>
+            Margin="0,40,0,20"/>
 
-        </Grid>
-
-
+            </Grid>
+        </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>
