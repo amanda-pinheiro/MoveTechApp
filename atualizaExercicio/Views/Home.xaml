@@ -280,7 +280,7 @@
                             <!-- Botão pílula à direita, sobre a imagem -->
                             <Button Grid.Row="1" Grid.Column="1"
                                     Text="Clique aqui"
-                                    CornerRadius="20"
+                                    CornerRadius="15"
                                     BackgroundColor="#4d0082"
                                     TextColor="White"
                                     FontFamily="QuicksandRegular"

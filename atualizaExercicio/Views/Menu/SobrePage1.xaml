@@ -39,62 +39,56 @@
             </Grid>
         </VerticalStackLayout>
 
+        <ScrollView>
         <!-- Texto centralizado no restante da tela -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <VerticalStackLayout VerticalOptions="Center">
+            <Grid RowDefinitions="*,*">
+            
+                <VerticalStackLayout Grid.Row="0"
+                                     TranslationY="50">
+                    <Frame  Grid.Row="0"
+                           BackgroundColor="#2c2c3e"
+                           Opacity="0.9"
+                           Padding="10"
+                           Margin="30,60,30,15"
+                           BorderColor="Transparent">
+                        <VerticalStackLayout>
+                            <Image 
+                                Source="aboutus.png"
+                                HeightRequest="60"
+                                Margin="0,5,0,5"
+                                HorizontalOptions="Center"/>
+                            <Label Text="     MoveTech é um aplicativo desenvolvido por quatro estudantes como parte de um projeto de TCC.&#10;     Criado para atender à crescente demanda por saúde e bem-estar, o app permite que praticantes de musculação criem, atualizem e acompanhem suas rotinas de treino de forma personalizada.&#10;     Com uma interface intuitiva e recursos que promovem autonomia e organização, MoveTech une tecnologia e qualidade de vida em uma solução prática e acessível."
+                               FontSize="15"
+                               LineBreakMode="WordWrap"
+                               Margin="15,20,15,15"
+                               TextColor="White"
+                               CharacterSpacing="1.4"
+                               HorizontalTextAlignment="Start"
+                               FontFamily="QuicksandRegular"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
 
-
-
-
-            <Frame Grid.Row="1" Grid.Column="1"
-                   BackgroundColor="#4D0082"
-                   Opacity="0.70"
-                   Padding="10"
-                   Margin="0,0,0,15"
-                   WidthRequest="350">
-                <Label Text="O MoveTech é um aplicativo desenvolvido por quatro estudantes como parte de um projeto de TCC. Criado para atender à crescente demanda por saúde e bem-estar, o app permite que praticantes de musculação criem, atualizem e acompanhem suas rotinas de treino de forma personalizada. Com uma interface intuitiva e recursos que promovem autonomia e organização, o MoveTech une tecnologia e qualidade de vida em uma solução prática e acessível."
-                       FontSize="20"
-                       Margin="15,20,20,15"
-                       TextColor="White"
-                       CharacterSpacing="1.4"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
-                       FontFamily="QuicksandRegular"/>
-            </Frame>
-
-
-            <!-- Botão de Voltar centralizado na parte inferior -->
-            <Button Grid.Row="2" Grid.Column="1"
-            x:Name="VoltarButton1"
-            Text="Voltar"
-            BackgroundColor="#4D2D8C"
-            TextColor="#FFFFFF"
-            Opacity="0.8"
-            CornerRadius="20"
-            Padding="20,10"
-            FontFamily="QuicksandRegular"
-            Clicked="VoltarButton1_Clicked"
-            WidthRequest="120"
-            HeightRequest="40"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            Margin="0,20"/>
-
-        </Grid>
-
-
+                <!-- Botão de Voltar centralizado na parte inferior -->
+                <Button Grid.Row="1" 
+                        x:Name="VoltarButton1"
+                        Text="Voltar"
+                        BackgroundColor="#4D2D8C"
+                        TextColor="#FFFFFF"
+                        Opacity="0.8"
+                        CornerRadius="20"
+                        Padding="20,10"
+                        FontFamily="QuicksandRegular"
+                        Clicked="VoltarButton1_Clicked"
+                        WidthRequest="120"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        TranslationY="60"
+                       />
+            </Grid>
+        </VerticalStackLayout>
+        </ScrollView>
     </Grid>
-
-
-
 
 </ContentPage>
