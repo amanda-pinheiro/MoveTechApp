@@ -55,14 +55,17 @@
 
                     <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center" ColumnSpacing="8" Padding="0">
                         <!-- optional left icon -->
-                        <SearchBar Grid.Column="1"
+                        <SearchBar x:Name="ActivitySearchEntry"
+                                   Grid.Column="1"
                                    Placeholder="Buscar atividade"
                                    PlaceholderColor="#CABAEB"
                                    BackgroundColor="#2C2C2C"
                                    TextColor="#CABAEB"
                                    FontFamily="QuicksandRegular"
                                    HeightRequest="45"
-                                   VerticalOptions="Center"/>
+                                   VerticalOptions="Center"
+                                   TextChanged="ActivitySearchEntry_TextChanged"/>
+
 
                         <!-- Botão "Novo Treino" -->
                         <Grid Grid.Column="2"                             
@@ -84,11 +87,52 @@
                     </Grid>
 
                     <!-- Próximo Treino -->
-                    <Label Text="Próximo Treino:" 
+                    <Label x:Name = "NovoTreinoLabel" Text="Próximo Treino:" 
                            Style="{StaticResource SubLabel}" 
                            FontSize="16" />
 
-                    <Frame CornerRadius="12"
+                <!-- LISTA DE RESULTADOS DA BUSCA -->
+                <CollectionView x:Name="SearchResultsView"
+                IsVisible="False"
+                SelectionMode="Single"
+                SelectionChanged="OnSearchResultSelected"
+                Margin="0,-10,0,10"
+                BackgroundColor="#1E1E1E"
+                HeightRequest="200"
+                VerticalOptions="Start">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10"
+                   Padding="10"
+                   BackgroundColor="#2C2C2C"
+                   Margin="0,5">
+                                <HorizontalStackLayout Spacing="12">
+                                    <Image Source="{Binding ImagemPrimeiroExercicio}"
+                           WidthRequest="50"
+                           HeightRequest="50"
+                           Aspect="AspectFill"/>
+
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding Titulo}"
+                               TextColor="White"
+                               FontFamily="QuicksandRegular"
+                               FontSize="14"/>
+
+                                        <Label Text="{Binding GrupoMuscularPrincipal}"
+                               TextColor="#CABAEB"
+                               FontFamily="QuicksandLight"
+                               FontSize="12"/>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+
+                <Frame x:Name="ProximoTreinoFrame" CornerRadius="12"
                            Padding="12"
                            HasShadow="False"
                            BackgroundColor="#4C795CB3">
@@ -99,22 +143,17 @@
 
                             <!-- Coluna esquerda: informações -->
                             <StackLayout Grid.Column="0" Grid.Row="0" Spacing="6">
-                                <Label Text="Treino: Título do Treino"
+                            <Label x:Name="NextTreinoTituloLabel" Text="Treino: Título do Treino"
                                        Style="{StaticResource TitleLabel}"
                                        FontSize="14"
                                        Margin="10"/>
 
-                                <Label Text="Data: 29/08/2025"
+                            <Label x:Name="NextTreinoDataLabel" Text="Data: 29/08/2025"
                                        Style="{StaticResource SmallLabel}"
                                        TextColor="#FFFFFF"
                                        FontSize="14"
                                        Margin="10"/>
 
-                                <Label Text="Tempo: 1h35"
-                                       Style="{StaticResource SmallLabel}"
-                                       TextColor="#FFFFFF"
-                                       FontSize="14"
-                                       Margin="10"/>
                             </StackLayout>
 
                             <!-- Coluna direita: grupo muscular e imagem -->
@@ -123,7 +162,7 @@
                                                  HorizontalOptions="Center"
                                                  VerticalOptions="Center"
                                                  Spacing="6">
-                                <Label Text="Grupo Muscular"
+                            <Label x:Name="NextTreinoGrupoLabel" Text="Grupo Muscular"
                                        Style="{StaticResource SmallLabel}"
                                        HorizontalTextAlignment="Center"
                                        TextColor="#FFFFFF"/>
@@ -151,7 +190,7 @@
                             <BoxView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="4" BackgroundColor="Transparent" />
 
                             <!-- Botão ocupando toda a base -->
-                            <Button Grid.Row="3"
+                        <Button x:Name="BtnIniciar" Grid.Row="3"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
                                     Text="Iniciar"
@@ -168,7 +207,7 @@
                         </Grid>
                     </Frame>
 
-                    <!-- Recent Activity -->
+                    <!-- Recent Activity 
                     <Label Text="O que você fez recentemente:" 
                            Style="{StaticResource SubLabel}" 
                            FontSize="16" />
@@ -177,12 +216,12 @@
                            Padding="12"
                            HasShadow="False"
                            BackgroundColor="#4C795CB3">
-                        <!-- alfa via hex para só o fundo -->
+                        
                         <Grid ColumnDefinitions="*,120"
                               RowDefinitions="Auto,Auto,Auto,Auto"
                               ColumnSpacing="10">
 
-                            <!-- Coluna esquerda: informações -->
+                            Coluna esquerda: informações
                             <StackLayout Grid.Column="0" Grid.Row="0" Spacing="6">
                                 <Label Text="Treino: Título do Treino"
                                        Style="{StaticResource TitleLabel}"
@@ -195,14 +234,9 @@
                                        FontSize="14"
                                        Margin="10"/>
 
-                                <Label Text="Tempo: 1h35"
-                                       Style="{StaticResource SmallLabel}"
-                                       TextColor="#FFFFFF"
-                                       FontSize="14"
-                                       Margin="10"/>
                             </StackLayout>
 
-                            <!-- Coluna direita: grupo muscular e imagem -->
+                            Coluna direita: grupo muscular e imagem
                             <VerticalStackLayout Grid.Column="1"
                                                  Grid.Row="0"
                                                  HorizontalOptions="Center"
@@ -229,13 +263,13 @@
                                 </Frame>
                             </VerticalStackLayout>
 
-                            <!-- Linha de espaçamento (opcional) -->
+                            Linha de espaçamento (opcional) 
                             <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="4" BackgroundColor="Transparent" />
 
-                            <!-- Outra linha de espaçamento (opcional) -->
+                           Outra linha de espaçamento (opcional)
                             <BoxView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="4" BackgroundColor="Transparent" />
 
-                            <!-- Botão ocupando toda a base -->
+                            Botão ocupando toda a base 
                             <Button Grid.Row="3"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
@@ -251,7 +285,8 @@
                                     VerticalOptions="End"
                                     Margin="0,10,0,0"/>
                         </Grid>
-                    </Frame>
+                    </Frame> -->
+        
 
                     <Frame CornerRadius="16"
                            Padding="0"
